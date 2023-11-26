@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="center">Log In</h3>
+
+<div class="row center">
+    <form class="col s12" action="{{ url_for('login') }}" method="post">
+        <div class="card-panel">
+            <div class="row">
+                {% if error %}
+                <h5 class="red darken-3">{{ error }}</h5>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$"
+                        required>
+                    <label for="username">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" name="password" type="password" class="validate" minlength="6" required>
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn-large">
+                    Log In
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

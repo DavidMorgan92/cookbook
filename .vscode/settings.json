@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
-        "flask_pymongo"
+        "bson",
+        "flask_pymongo",
+        "werkzeug"
     ]
 }
