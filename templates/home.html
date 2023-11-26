@@ -1,2 +1,31 @@
 {% extends "base.html" %}
 
+{% block content %}
+
+<!-- Hero image and site heading -->
+<section id="hero" class="row">
+    <div class="col s12">
+        <h1 class="center blue-grey-text text-lighten-5">The Home of Home Cooking</h1>
+    </div>
+    
+    <!-- Search form -->
+    <form class="col s10 offset-s1 white">
+        <div class="input-field">
+            <i class="material-icons prefix">search</i>
+            <input id="search" name="search" type="search" class="validate">
+            <label for="search">Search all recipes</label>
+        </div>
+    </form>
+</section>
+
+<!-- Popular recipes -->
+<section id="popular-recipes">
+    <h2>Popular recipes</h2>
+</section>
+
+<!-- Recipes by category -->
+<section>
+    <h2>Recipes by category</h2>
+</section>
+
+{% endblock %}
