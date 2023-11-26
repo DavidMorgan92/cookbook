@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_pymongo import PyMongo
+from flask_wtf.csrf import CSRFProtect
 from user import create_user, login_user
 from exceptions import UserAlreadyExists, InvalidUsername, InvalidPassword, UserDoesNotExist, IncorrectPassword
 
@@ -17,6 +18,10 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
+
+# Add CSRF protection to app
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 
 @app.route("/")
@@ -84,7 +89,7 @@ def do_login(username, password):
         "_id": str(user["_id"]),
         "name": user["name"]
     }
-    
+
     return redirect(url_for("home"))
 
 

@@ -6,6 +6,7 @@
 
 <div class="row center">
     <form class="col s12" action="{{ url_for('register') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="card-panel">
             <div class="row">
                 {% if error %}

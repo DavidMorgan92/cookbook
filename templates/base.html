@@ -43,6 +43,7 @@
 
         <!-- Hidden logout form to be submitted by navbar link -->
         <form id="logout-form" action="{{ url_for('logout') }}" method="post" hidden>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         </form>
     </header>
 
