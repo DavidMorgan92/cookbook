@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, abort
 from flask_pymongo import PyMongo
 from flask_wtf.csrf import CSRFProtect
+from bson.objectid import ObjectId
 from user import create_user, login_user
 from exceptions import UserAlreadyExists, InvalidUsername, InvalidPassword, UserDoesNotExist, IncorrectPassword
 
@@ -75,6 +76,48 @@ def logout():
     session["user"] = None
 
     return redirect(url_for("home"))
+
+
+@app.route("/my_recipes")
+def my_recipes():
+    """
+    Show a list of recipes belonging to the logged in user.
+    """
+
+    # Redirect to login if user is not logged in
+    if session["user"] == None:
+        return redirect(url_for("login"))
+    
+    # Get list of recipes belonging to the logged in user
+    user_id = session["user"]["_id"]
+    recipes = list(mongo.db.recipes.find({"creator": ObjectId(user_id)}))
+    
+    return render_template("my_recipes.html", recipes=recipes)
+
+
+@app.route("/edit_recipe/<id>", methods=["GET", "POST"])
+def edit_recipe(id):
+    """
+    Edit a recipe belonging to the logged in user.
+    """
+
+    # Redirect to login if user is not logged in
+    if session["user"] == None:
+        return redirect(url_for("login"))
+    
+    # Raise 404 error if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+    
+    # Get the recipe with the given ID that also belongs to the logged in user
+    user_id = session["user"]["_id"]
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(id), "creator": ObjectId(user_id)})
+
+    # Raise 404 error if a matching recipe is not found
+    if recipe == None:
+        abort(404)
+    
+    return render_template("edit_recipe.html", recipe=recipe)
 
 
 def do_login(username, password):

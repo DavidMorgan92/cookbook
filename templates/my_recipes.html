@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    {% if recipes|length == 0 %}
+    <h3>You have not created any recipes yet</h3>
+    {% endif %}
+
+    {% for recipe in recipes %}
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-image">
+                {% if recipe.image_url %}
+                <img src="{{ url_for('static', filename='images/recipes/' + recipe.image_url) }}" alt="Image of the recipe">
+                {% else %}
+                <img src="{{ url_for('static', filename='images/missing-image.png') }}" alt="Image indicating the recipe has no image">
+                {% endif %}
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                    {{ recipe.name }}
+                    <i class="material-icons right">more_vert</i>
+                </span>
+                <div class="row">
+                    <div class="col s6">
+                        <i class="material-icons left">person</i>
+                        {% if recipe.serves.from == recipe.serves.to %}
+                        {{ recipe.serves.from }}
+                        {% else %}
+                        {{ recipe.serves.from }}-{{ recipe.serves.to }}
+                        {% endif %}
+                    </div>
+                    <div class="col s6">
+                        <i class="material-icons left">hourglass_empty</i>
+                        {{ recipe.time }}
+                    </div>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">
+                    {{ recipe.name }}
+                    <i class="material-icons right">close</i>
+                </span>
+                <p>{{ recipe.description }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{{ url_for('edit_recipe', id=recipe._id) }}">Edit This Recipe</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
