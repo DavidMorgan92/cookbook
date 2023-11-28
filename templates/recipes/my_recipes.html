@@ -15,7 +15,7 @@
 
     {% for recipe in recipes %}
     <div class="col s12 m6">
-        <div class="card">
+        <div class="card left-align">
             <div class="card-image">
                 {% if recipe.image_url %}
                 <img src="{{ url_for('static', filename='images/recipes/' + recipe.image_url) }}" alt="Image of the recipe">
