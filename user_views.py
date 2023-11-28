@@ -1,41 +1,38 @@
-from flask import request, render_template, session, redirect, url_for
-from user import create_user, login_user
+from flask import request, render_template, session, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 from exceptions import UserAlreadyExists, InvalidPassword, InvalidUsername, UserDoesNotExist, IncorrectPassword
 from setup import mongo
 
 
 def register():
-    error = None
-
     if request.method == "POST":
-        try:
-            username = request.form.get("username")
-            password = request.form.get("password")
-            create_user(mongo, username, password)
-        except UserAlreadyExists:
-            error = "Username is already taken"
-        except InvalidUsername:
-            error = "Username is invalid"
-        except InvalidPassword:
-            error = "Password is invalid"
-        else:
-            return do_login(username, password)
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-    return render_template("register.html", error=error)
+        if get_user(mongo, username) != None:
+            flash("Username is already taken")
+            return
+
+        user = {
+            "name": username,
+            "password_hash": generate_password_hash(password)
+        }
+
+        mongo.db.users.insert_one(user)
+
+        return login_user(username, password)
+
+    return render_template("register.html")
 
 
 def login():
-    error = None
-
     if request.method == "POST":
-        try:
-            username = request.form.get("username")
-            password = request.form.get("password")
-            return do_login(username, password)
-        except (UserDoesNotExist, IncorrectPassword):
-            error = "Username or password is incorrect"
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-    return render_template("login.html", error=error)
+        return login_user(username, password)
+
+    return render_template("login.html")
 
 
 def logout():
@@ -49,13 +46,21 @@ def logout():
     return redirect(url_for("home"))
 
 
-def do_login(username, password):
+def login_user(username, password):
     """
     Log the user in and store that in the session.
     Return a redirect to the home page.
     """
 
-    user = login_user(mongo, username, password)
+    user = get_user(username)
+
+    if user == None:
+        flash("Username or password is incorrect")
+        return
+
+    if not check_password_hash(user["password_hash"], password):
+        flash("Username or password is incorrect")
+        return
 
     session["user"] = {
         "_id": str(user["_id"]),
@@ -63,3 +68,9 @@ def do_login(username, password):
     }
 
     return redirect(url_for("home"))
+
+
+def get_user(username):
+    """Returns the user object with the given username."""
+
+    return mongo.db.users.find_one({"name": username})
