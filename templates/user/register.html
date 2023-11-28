@@ -5,7 +5,7 @@
 <h3 class="center">Register</h3>
 
 <div class="row center">
-    <form class="col s12" action="{{ url_for('register') }}" method="post">
+    <form class="col s12" action="{{ url_for('user_register') }}" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="card-panel">
             <div class="row">

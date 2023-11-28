@@ -5,7 +5,7 @@
 <h3 class="center">Are you sure you want to delete this recipe?</h2>
 
 <div class="row center">
-    <form class="col s12" action="{{ url_for('delete_recipe', id=recipe._id) }}" method="post">
+    <form class="col s12" action="{{ url_for('recipes_delete', id=recipe._id) }}" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="card-panel">
             <div class="row">

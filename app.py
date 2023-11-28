@@ -3,7 +3,7 @@ from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 from setup import create_app
 import user_views
-import recipe_views
+import recipes_views
 
 # Initialize environment variables
 try:
@@ -27,16 +27,14 @@ def home():
 
 
 # Register user views
-app.add_url_rule("/register", view_func=user_views.register)
-app.add_url_rule("/login", view_func=user_views.login)
-app.add_url_rule("/logout", view_func=user_views.logout)
+app.add_url_rule("/user/register", "user_register", view_func=user_views.register)
+app.add_url_rule("/user/login", "user_login", view_func=user_views.login)
+app.add_url_rule("/user/logout", "user_logout", view_func=user_views.logout)
 
 # Register recipe views
-app.add_url_rule("/my_recipes", view_func=recipe_views.my_recipes)
-app.add_url_rule("/edit_recipe/<id>",
-                 view_func=recipe_views.edit_recipe)
-app.add_url_rule("/delete_recipe/<id>",
-                 view_func=recipe_views.delete_recipe)
+app.add_url_rule("/recipes", "recipes_index", view_func=recipes_views.index)
+app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.edit)
+app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
 
 if __name__ == "__main__":
     host = "0.0.0.0"

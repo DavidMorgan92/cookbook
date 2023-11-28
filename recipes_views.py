@@ -3,12 +3,12 @@ from bson.objectid import ObjectId
 from setup import mongo
 
 
-def my_recipes():
+def index():
     """View func to show a list of recipes belonging to the logged in user."""
 
     # Redirect to login if user is not logged in
     if session["user"] == None:
-        return redirect(url_for("login"))
+        return redirect(url_for("user/login"))
 
     # A filter to locate the logged in user's recipes in the database
     filter = {"creator": ObjectId(session["user"]["id"])}
@@ -17,18 +17,18 @@ def my_recipes():
     recipes = list(mongo.db.recipes.find(filter))
 
     # Render template with list of recipes
-    return render_template("recipes/my_recipes.html", recipes=recipes)
+    return render_template("recipes/index.html", recipes=recipes)
 
 
-my_recipes.required_methods = ["GET"]
+index.required_methods = ["GET"]
 
 
-def edit_recipe(id):
+def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
 
     # Redirect to login if user is not logged in
     if session["user"] == None:
-        return redirect(url_for("login"))
+        return redirect(url_for("user/login"))
 
     # Raise 404 error if the ID is invalid
     if not ObjectId.is_valid(id):
@@ -66,21 +66,21 @@ def edit_recipe(id):
         flash("Changes saved")
 
         # Redirect to the my recipes page
-        return redirect(url_for("my_recipes"))
+        return redirect(url_for("recipes"))
 
     # Render the edit recipe template
-    return render_template("recipes/edit_recipe.html", recipe=recipe)
+    return render_template("recipes/edit.html", recipe=recipe)
 
 
-edit_recipe.required_methods = ["GET", "POST"]
+edit.required_methods = ["GET", "POST"]
 
 
-def delete_recipe(id):
+def delete(id):
     """View func to delete a recipe belonging to the logged in user."""
 
     # Redirect to login if the user is not logged in
     if session["user"] == None:
-        return redirect(url_for("login"))
+        return redirect(url_for("user/login"))
 
     # Raise 404 error if the ID is invalid
     if not ObjectId.is_valid(id):
@@ -105,10 +105,10 @@ def delete_recipe(id):
         flash("Recipe deleted")
 
         # Redirect to the my recipes page
-        return redirect(url_for("my_recipes"))
+        return redirect(url_for("recipes"))
 
     # Render the delete recipe template
-    return render_template("recipes/delete_recipe.html", recipe=recipe)
+    return render_template("recipes/delete.html", recipe=recipe)
 
 
-delete_recipe.required_methods = ["GET", "POST"]
+delete.required_methods = ["GET", "POST"]

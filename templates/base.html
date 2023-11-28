@@ -21,12 +21,12 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     {% if session.user %}
-                    <li><a href="{{ url_for('my_recipes') }}">My Recipes</a></li>
+                    <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
                     <li><a href="#">My Account</a></li>
                     <li><a class="logout-button">Log Out</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('login') }}">Log In</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('user_login') }}">Log In</a></li>
+                    <li><a href="{{ url_for('user_register') }}">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -35,17 +35,17 @@
         <!-- Mobile side-nav menu -->
         <ul class="sidenav" id="mobile-demo">
             {% if session.user %}
-            <li><a href="{{ url_for('my_recipes') }}">My Recipes</a></li>
+            <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
             <li><a href="#">My Account</a></li>
             <li><a class="logout-button">Log Out</a></li>
             {% else %}
-            <li><a href="{{ url_for('login') }}">Log In</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
-            {% endif %}
+            <li><a href="{{ url_for('user_login') }}">Log In</a></li>
+            <li><a href="{{ url_for('user_register') }}">Register</a></li>
+    {% endif %}
         </ul>
 
         <!-- Hidden logout form to be submitted by navbar link -->
-        <form id="logout-form" action="{{ url_for('logout') }}" method="post" hidden>
+        <form id="logout-form" action="{{ url_for('user_logout') }}" method="post" hidden>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         </form>
     </header>

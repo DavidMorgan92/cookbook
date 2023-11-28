@@ -55,8 +55,8 @@
                 <p>{{ recipe.description }}</p>
             </div>
             <div class="card-action">
-                <a href="{{ url_for('edit_recipe', id=recipe._id) }}">Edit</a>
-                <a href="{{ url_for('delete_recipe', id=recipe._id) }}">Delete</a>
+                <a href="{{ url_for('recipes_edit', id=recipe._id) }}">Edit</a>
+                <a href="{{ url_for('recipes_delete', id=recipe._id) }}">Delete</a>
             </div>
         </div>
     </div>
