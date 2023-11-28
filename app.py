@@ -36,6 +36,8 @@ app.add_url_rule("/logout", view_func=user_views.logout, methods=["POST"])
 app.add_url_rule("/my_recipes", view_func=recipe_views.my_recipes)
 app.add_url_rule("/edit_recipe/<id>",
                  view_func=recipe_views.edit_recipe, methods=["GET", "POST"])
+app.add_url_rule("/delete_recipe/<id>",
+                 view_func=recipe_views.delete_recipe, methods=["GET", "POST"])
 
 if __name__ == "__main__":
     host = "0.0.0.0"
