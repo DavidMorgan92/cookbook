@@ -27,10 +27,9 @@ def home():
 
 
 # Register user views
-app.add_url_rule("/register", view_func=user_views.register,
-                 methods=["GET", "POST"])
-app.add_url_rule("/login", view_func=user_views.login, methods=["GET", "POST"])
-app.add_url_rule("/logout", view_func=user_views.logout, methods=["POST"])
+app.add_url_rule("/register", view_func=user_views.register)
+app.add_url_rule("/login", view_func=user_views.login)
+app.add_url_rule("/logout", view_func=user_views.logout)
 
 # Register recipe views
 app.add_url_rule("/my_recipes", view_func=recipe_views.my_recipes)
