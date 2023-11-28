@@ -39,6 +39,7 @@ def register():
             # Redirect to home page
             return redirect(url_for("home"))
 
+    # Render the register template
     return render_template("user/register.html")
 
 

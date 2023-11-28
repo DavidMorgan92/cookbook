@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="center">{{ recipe.name }}</h2>
+
+<div class="row center">
+    <form class="col s12" action="{{ url_for('edit_recipe', id=recipe._id) }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="card-panel">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="name" name="name" type="text" class="validate" required>
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="description" name="description" type="text" class="validate" required>
+                    <label for="description">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="time" name="time" type="text" class="validate" required>
+                    <label for="time">Time</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="serves-from" type="number" class="validate" required>
+                    <label for="serves-from">Serves From</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="serves-to" type="number" class="validate" required>
+                    <label for="serves-to">Serves To</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Image</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input name="image" class="file-path validate" type="text" placeholder="Upload an image">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn-large">
+                    Save Changes
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
