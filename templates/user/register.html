@@ -6,23 +6,46 @@
 
 <div class="row center">
     <form class="col s12" action="{{ url_for('user_register') }}" method="post">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {{ form.csrf_token }}
+        
         <div class="card-panel">
+            <!-- Username field -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$"
-                        required>
-                    <label for="username">Username</label>
+                    {{ form.username(class_="validate" if not form.username.errors else "validate invalid") }}
+                    {{ form.username.label }}
+
+                    <!-- Username validation errors -->
+                    {% if form.username.errors %}
+                    <ul class="red-text">
+                        {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Password field -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input id="password" name="password" type="password" class="validate" minlength="6" required>
-                    <label for="password">Password</label>
+                    {{ form.password(class_="validate" if not form.password.errors else "validate invalid") }}
+                    {{ form.password.label }}
+
+                    <!-- Password validation errors -->
+                    {% if form.password.errors %}
+                    <ul class="red-text">
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Submit button -->
             <div class="row">
                 <button type="submit" class="btn-large">
                     Register
