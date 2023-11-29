@@ -1,6 +1,7 @@
 from flask import request, render_template, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup import mongo
+from user.login_form import LoginForm
 
 
 def register():
@@ -34,7 +35,7 @@ def register():
             }
 
             # Flash successful registered message
-            flash("Successfully registered")
+            flash(f"Welcome {username}")
 
             # Redirect to home page
             return redirect(url_for("home"))
@@ -49,18 +50,16 @@ register.required_methods = ["GET", "POST"]
 def login():
     """View func to log in the user."""
 
-    # If the form is posted
-    if request.method == "POST":
-        # Get the form values
-        username = request.form.get("username")
-        password = request.form.get("password")
+    form = LoginForm()
 
+    # If the form is posted and valid
+    if form.validate_on_submit():
         # Get the user with the given username
-        user = mongo.db.users.find_one({"name": username})
+        user = mongo.db.users.find_one({"name": form.username.data})
 
         # If the username or password is incorrect
-        if user == None or not check_password_hash(user["password_hash"], password):
-            # Flash a message
+        if user == None or not check_password_hash(user["password_hash"], form.password.data):
+            # Flash an error message
             flash("Username or password is incorrect")
         else:
             # Store the user ID in the session
@@ -69,13 +68,13 @@ def login():
             }
 
             # Flash successful login message
-            flash("Successfully logged in")
+            flash(f"Welcome {form.username.data}")
 
             # Redirect to home page
             return redirect(url_for("home"))
 
     # Render the login template
-    return render_template("user/login.html")
+    return render_template("user/login.html", form=form)
 
 
 login.required_methods = ["GET", "POST"]

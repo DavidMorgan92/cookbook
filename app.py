@@ -2,7 +2,7 @@ import os
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 from setup import create_app
-import user_views
+import user.user_views as user_views
 import recipes_views
 
 # Initialize environment variables
