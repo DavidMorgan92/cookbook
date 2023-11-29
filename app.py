@@ -2,8 +2,8 @@ import os
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 from setup import create_app
-import user.user_views as user_views
-import recipes_views
+import routes.user.views as user_views
+import routes.recipes.views as recipes_views
 
 # Initialize environment variables
 try:

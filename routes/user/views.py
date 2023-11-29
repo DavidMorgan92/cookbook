@@ -1,8 +1,8 @@
 from flask import request, render_template, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup import mongo
-from user.login_form import LoginForm
-from user.register_form import RegisterForm
+from routes.user.login_form import LoginForm
+from routes.user.register_form import RegisterForm
 
 
 def register():
