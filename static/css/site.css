@@ -19,3 +19,7 @@
 #popular-recipes {
     margin-top: 500px;
 }
+
+.d-flex {
+    display: flex;
+}

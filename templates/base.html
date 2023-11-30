@@ -41,7 +41,7 @@
             {% else %}
             <li><a href="{{ url_for('user_login') }}">Log In</a></li>
             <li><a href="{{ url_for('user_register') }}">Register</a></li>
-    {% endif %}
+            {% endif %}
         </ul>
 
         <!-- Hidden logout form to be submitted by navbar link -->
@@ -75,6 +75,9 @@
         integrity="sha512-m2PhLxj2N91eYrIGU2cmIu2d0SkaE4A14bCjVb9zykvp6WtsdriFCiXQ/8Hdj0kssUB/Nz0dMBcoLsJkSCto0Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ url_for('static', filename='js/site.js') }}"></script>
+
+    {% block scripts %}
+    {% endblock %}
 </body>
 
 </html>

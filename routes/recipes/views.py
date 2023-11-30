@@ -1,6 +1,7 @@
 from flask import session, redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from setup import mongo
+from routes.recipes.edit_form import EditForm
 
 
 def index():
@@ -44,32 +45,48 @@ def edit(id):
     if recipe == None:
         abort(404)
 
-    # If the form is posted
-    if request.method == "POST":
+    # Create the form
+    form = EditForm()
+
+    # If the form is posted and valid
+    if form.validate_on_submit():
         # Construct an update object with the form values
         update = {
-            "name": request.form.get("name"),
-            "time": request.form.get("time"),
+            "name": form.name.data,
+            "description": form.description.data,
+            "time": form.time.data,
             "serves": {
-                "from": request.form.get("serves-from"),
-                "to": request.form.get("serves-to")
+                "from": form.serves_from.data,
+                "to": form.serves_to.data
             },
-            "description": request.form.get("description"),
-            "ingredients": [],
-            "steps": []
+            "ingredients": form.ingredients.data,
+            "steps": form.steps.data
         }
 
         # Update the recipe in the database
-        mongo.db.recipes.update_one(filter, update)
+        mongo.db.recipes.update_one(filter, {"$set": update})
 
         # Flash a successfully edited message
         flash("Changes saved")
 
         # Redirect to the my recipes page
-        return redirect(url_for("recipes"))
+        return redirect(url_for("recipes_index"))
+    
+    # Populate the form with existing data
+    form.name.data = recipe["name"]
+    form.description.data = recipe["description"]
+    form.time.data = recipe["time"]
+    form.serves_from.data = recipe["serves"]["from"]
+    form.serves_to.data = recipe["serves"]["to"]
+
+    for ingredient in recipe["ingredients"]:
+        form.ingredients.append_entry(ingredient)
+
+    for step in recipe["steps"]:
+        form.steps.append_entry(step)
 
     # Render the edit recipe template
-    return render_template("recipes/edit.html", recipe=recipe)
+    return render_template("recipes/edit.html", form=form, id=id)
 
 
 edit.required_methods = ["GET", "POST"]
@@ -105,7 +122,7 @@ def delete(id):
         flash("Recipe deleted")
 
         # Redirect to the my recipes page
-        return redirect(url_for("recipes"))
+        return redirect(url_for("recipes_index"))
 
     # Render the delete recipe template
     return render_template("recipes/delete.html", recipe=recipe)

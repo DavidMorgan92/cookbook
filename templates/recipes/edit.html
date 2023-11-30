@@ -2,40 +2,99 @@
 
 {% block content %}
 
-<h3 class="center">{{ recipe.name }}</h2>
+<h3 class="center">{{ form.name.data }}</h3>
 
 <div class="row center">
-    <form class="col s12" action="{{ url_for('recipes_edit', id=recipe._id) }}" method="post">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <form class="col s12" action="{{ url_for('recipes_edit', id=id) }}" method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+
         <div class="card-panel">
+            <h4>Recipe details</h4>
+
+            <!-- Name field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="name" name="name" type="text" class="validate" required>
-                    <label for="name">Name</label>
+                    {{ form.name(class_="validate" if not form.name.errors else "validate invalid") }}
+                    {{ form.name.label }}
+
+                    <!-- Name validation errors -->
+                    {% if form.name.errors %}
+                    <ul class="red-text">
+                        {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Description field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="description" name="description" type="text" class="validate" required>
-                    <label for="description">Description</label>
+                    {{ form.description(class_="validate" if not form.description.errors else "validate invalid") }}
+                    {{ form.description.label }}
+
+                    <!-- Description validation errors -->
+                    {% if form.description.errors %}
+                    <ul class="red-text">
+                        {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Time field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="time" name="time" type="text" class="validate" required>
-                    <label for="time">Time</label>
+                    {{ form.time(class_="validate" if not form.time.errors else "validate invalid") }}
+                    {{ form.time.label }}
+
+                    <!-- Time validation errors -->
+                    {% if form.time.errors %}
+                    <ul class="red-text">
+                        {% for error in form.time.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
             <div class="row">
+                <!-- Serves from field -->
                 <div class="input-field col s6">
-                    <input id="serves-from" type="number" class="validate" required>
-                    <label for="serves-from">Serves From</label>
+                    {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
+                    {{ form.serves_from.label }}
+
+                    <!-- Serves from validation errors -->
+                    {% if form.serves_from.errors %}
+                    <ul class="red-text">
+                        {% for error in form.serves_from.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
+
+                <!-- Serves to field -->
                 <div class="input-field col s6">
-                    <input id="serves-to" type="number" class="validate" required>
-                    <label for="serves-to">Serves To</label>
+                    {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
+                    {{ form.serves_to.label }}
+
+                    <!-- Serves to validation errors -->
+                    {% if form.serves_to.errors %}
+                    <ul class="red-text">
+                        {% for error in form.serves_to.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Image field -->
             <div class="row">
                 <div class="file-field input-field">
                     <div class="btn">
@@ -43,10 +102,95 @@
                         <input type="file">
                     </div>
                     <div class="file-path-wrapper">
-                        <input name="image" class="file-path validate" type="text" placeholder="Upload an image">
+                        {{ form.image(class_="file-path validate" if not form.image.errors else "file-path validate
+                        invalid", type="text", placeholder="Upload an image") }}
                     </div>
                 </div>
+
+                <!-- Image validation errors -->
+                <div class="col s12">
+                    {% if form.image.errors %}
+                    <ul class="red-text">
+                        {% for error in form.image.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
+
+            <h4>Ingredients</h4>
+
+            <!-- Ingredients -->
+            <div id="ingredients" class="row">
+                {% for ingredient in form.ingredients %}
+                <div class="input-field col s12 d-flex">
+                    {{ ingredient(class_="validate" if not ingredient.errors else "validate invalid") }}
+                    {{ ingredient.label("Ingredient " + loop.index|string) }}
+
+                    <!-- Remove ingredient button -->
+                    <button class="btn red remove-btn" type="button">
+                        <i class="material-icons">close</i>
+                    </button>
+
+                    <!-- Ingredient validation errors -->
+                    {% if ingredient.errors %}
+                    <ul class="red-text">
+                        {% for error in ingredient.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <!-- Ingredients validation errors -->
+                {% if form.ingredients.errors %}
+                <ul class="red-text">
+                    {% for error in form.ingredients.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <!-- Add ingredient button -->
+                <div class="col s12">
+                    <button class="btn add-btn" type="button">Add Ingredient</button>
+                </div>
+            </div>
+
+            <h4>Steps</h4>
+
+            <!-- Steps -->
+            <div id="steps" class="row">
+                {% for step in form.steps %}
+                <div class="input-field col s12 d-flex">
+                    {{ step(class_="validate" if not step.errors else "validate invalid") }}
+                    {{ step.label("Step " + loop.index|string) }}
+
+                    <!-- Remove step button -->
+                    <button class="btn red remove-btn" type="button">
+                        <i class="material-icons">close</i>
+                    </button>
+
+                    <!-- Step validation errors -->
+                    {% if step.errors %}
+                    <ul class="red-text">
+                        {% for error in step.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <!-- Remove ingredient button -->
+                <div class="col s12">
+                    <button class="btn add-btn" type="button">Add Step</button>
+                </div>
+            </div>
+
+            <!-- Submit button -->
             <div class="row">
                 <button type="submit" class="btn-large">
                     Save Changes
@@ -57,4 +201,8 @@
     </form>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/edit-recipe.js') }}"></script>
 {% endblock %}
