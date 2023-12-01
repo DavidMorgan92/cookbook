@@ -1,5 +1,6 @@
 from flask import session, redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
+from base64 import b64encode
 from setup import mongo
 from routes.recipes.edit_form import EditForm
 
@@ -50,6 +51,9 @@ def edit(id):
 
     # If the form is posted and valid
     if form.validate_on_submit():
+        image = request.files.get(form.image.name, None)
+        image_data = b64encode(image.read()).decode() if image else None
+
         # Construct an update object with the form values
         update = {
             "name": form.name.data,
@@ -59,6 +63,7 @@ def edit(id):
                 "from": form.serves_from.data,
                 "to": form.serves_to.data
             },
+            "image_data": image_data,
             "ingredients": form.ingredients.data,
             "steps": form.steps.data
         }

@@ -17,8 +17,8 @@
     <div class="col s12 m6">
         <div class="card left-align">
             <div class="card-image">
-                {% if recipe.image_url %}
-                <img src="{{ url_for('static', filename='images/recipes/' + recipe.image_url) }}" alt="Image of the recipe">
+                {% if recipe.image_data %}
+                <img src="data:image;base64,{{ recipe.image_data }}" alt="Image of the recipe">
                 {% else %}
                 <img src="{{ url_for('static', filename='images/missing-image.png') }}" alt="Image indicating the recipe has no image">
                 {% endif %}
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col s4">
                         <i class="material-icons left">hourglass_empty</i>
-                        {{ recipe.time }}
+                        {{ recipe.time_minutes }}m
                     </div>
                     <div class="col s4">
                         <i class="material-icons left">star</i>

@@ -1,10 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flask_uploads import UploadSet, IMAGES
 from wtforms import StringField, FieldList, IntegerRangeField, IntegerField, TextAreaField, validators, ValidationError
-
-
-image_upload_set = UploadSet("images", IMAGES)
 
 
 class EditForm(FlaskForm):
@@ -29,7 +25,7 @@ class EditForm(FlaskForm):
         validators.NumberRange(min=1, max=10)])
 
     image = FileField("Image", validators=[
-        FileAllowed(image_upload_set, "Only image file are allowed")])
+        FileAllowed(["jpg", "png"], "Only JPG and PNG files are allowed")])
 
     ingredients = FieldList(StringField(
         "Ingredient", [validators.DataRequired()]), min_entries=1)
