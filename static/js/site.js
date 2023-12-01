@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('.sidenav').sidenav();
 
     // Initialize character counters
-    $('input.character-counter').characterCounter();
+    $('.character-counter').characterCounter();
 
     // Initialize logout nav menu buttons to submit the hidden logout form
     $('.logout-button').on('click', function () {

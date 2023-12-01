@@ -54,7 +54,7 @@ def edit(id):
         update = {
             "name": form.name.data,
             "description": form.description.data,
-            "time": form.time.data,
+            "time_minutes": form.time.data,
             "serves": {
                 "from": form.serves_from.data,
                 "to": form.serves_to.data
@@ -76,7 +76,7 @@ def edit(id):
     if not form.is_submitted():
         form.name.data = recipe["name"]
         form.description.data = recipe["description"]
-        form.time.data = recipe["time"]
+        form.time.data = recipe["time_minutes"]
         form.serves_from.data = recipe["serves"]["from"]
         form.serves_to.data = recipe["serves"]["to"]
 

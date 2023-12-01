@@ -33,8 +33,9 @@
             <!-- Description field -->
             <div class="row">
                 <div class="input-field col s12">
-                    {{ form.description(class_="validate character-counter" if not form.description.errors else
-                    "validate invalid character-counter", data_length="500") }}
+                    {{ form.description(class_="validate character-counter materialize-textarea" if not
+                    form.description.errors else
+                    "validate invalid character-counter materialize-textarea", data_length="500") }}
                     {{ form.description.label }}
 
                     <!-- Description validation errors -->
@@ -140,7 +141,7 @@
                         <i class="material-icons">delete</i>
                     </button>
                 </div>
-                
+
                 <!-- Ingredient validation errors -->
                 {% if ingredient.errors %}
                 <div class="col s12">

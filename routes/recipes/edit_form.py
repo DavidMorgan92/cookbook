@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_uploads import UploadSet, IMAGES
-from wtforms import StringField, FieldList, IntegerRangeField, validators, ValidationError
+from wtforms import StringField, FieldList, IntegerRangeField, IntegerField, TextAreaField, validators, ValidationError
 
 
 image_upload_set = UploadSet("images", IMAGES)
@@ -12,12 +12,13 @@ class EditForm(FlaskForm):
         validators.DataRequired(),
         validators.length(max=50)])
 
-    description = StringField("Description", validators=[
+    description = TextAreaField("Description", validators=[
         validators.DataRequired(),
         validators.Length(max=500)])
 
-    time = StringField("Time", validators=[
-        validators.DataRequired()])
+    time = IntegerField("Time (minutes)", validators=[
+        validators.DataRequired(),
+        validators.NumberRange(min=1, max=600)])
 
     serves_from = IntegerRangeField("Serves from", validators=[
         validators.DataRequired(),
@@ -27,8 +28,8 @@ class EditForm(FlaskForm):
         validators.DataRequired(),
         validators.NumberRange(min=1, max=10)])
 
-    image = FileField("Image", validators=[FileAllowed(
-        image_upload_set, "Only image file are allowed")])
+    image = FileField("Image", validators=[
+        FileAllowed(image_upload_set, "Only image file are allowed")])
 
     ingredients = FieldList(StringField(
         "Ingredient", [validators.DataRequired()]), min_entries=1)
