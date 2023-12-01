@@ -4,17 +4,27 @@ $(document).ready(function () {
     makeTemplate('#steps .input-field', 'step-template', 'step-template-input', 'step-template-name');
 
     // Update ingredient and step input labels
-    setIngredientLabels();
-    setStepLabels();
+    setFieldListLabels('#ingredients', 'ingredients', 'Ingredient');
+    setFieldListLabels('#steps', 'steps', 'Step');
 
     // Set range slider labels
-    setServesFromLabel();
-    setServesToLabel();
+    setRangeLabel('Serves from', '#serves_from');
+    setRangeLabel('Serves to', '#serves_to');
 
-    // On add ingredient button clicked
-    $('#ingredients').on('click', '.add-btn', function () {
+    // Setup add/remove buttons
+    setupAddRemoveButtons('#ingredients', '#ingredient-template', $('#ingredients .input-field').last(), () => setFieldListLabels('#ingredients', 'ingredients', 'Ingredient'));
+    setupAddRemoveButtons('#steps', '#step-template', $('#steps .input-field').last(), () => setFieldListLabels('#steps', 'steps', 'Step'));
+
+    // Update serves_from and serves_to labels when the values change
+    $('#serves_from').on('change', () => setRangeLabel('Serves from', '#serves_from'));
+    $('#serves_to').on('change', () => setRangeLabel('Serves to', '#serves_to'));
+});
+
+function setupAddRemoveButtons(sectionId, templateId, insertAfterSelector, callback) {
+    // On add button clicked
+    $(sectionId).on('click', '.add-btn', function () {
         // Clone the template
-        const template = $('#ingredient-template').clone();
+        const template = $(templateId).clone();
 
         // Un-hide it and remove its ID
         template
@@ -23,45 +33,24 @@ $(document).ready(function () {
             .removeAttr('id');
 
         // Insert the template after the last ingredient
-        template.insertAfter($('#ingredients .input-field').last());
-        
-        // Update ingredient input labels
-        setIngredientLabels();
+        template.insertAfter(insertAfterSelector);
+
+        // Invoke callback
+        callback();
     });
 
-    // On remove ingredient button clicked
-    $('#ingredients').on('click', '.remove-btn', function () {
+    // On remove button clicked
+    $(sectionId).on('click', '.remove-btn', function () {
         // Remove this button's parent
         $(this).parent().remove();
 
-        // Update ingredient input labels
-        setIngredientLabels();
+        // Invoke callback
+        callback();
     });
-
-    $('#steps').on('click', '.add-btn', function () {
-        const template = $('#step-template').clone();
-
-        template
-            .prop('hidden', false)
-            .addClass('d-flex')
-            .removeAttr('id');
-
-        $(this).parent().before(template);
-        setStepLabels();
-    });
-
-    $('#steps').on('click', '.remove-btn', function () {
-        $(this).parent().remove();
-        setStepLabels();
-    });
-
-    // Update servers_from and serves_to labels when the values change
-    $('#serves_from').on('change', setServesFromLabel);
-    $('#serves_to').on('change', setServesToLabel);
-});
+}
 
 function makeTemplate(selector, id, inputId, name) {
-    // Turn first ingredients item into a hidden template
+    // Get first element which matches the selector
     const firstIngredient = $(selector).first();
 
     // Hide the template and give it an ID
@@ -83,42 +72,25 @@ function makeTemplate(selector, id, inputId, name) {
     firstIngredient.insertAfter('#edit-form');
 }
 
-function setIngredientLabels() {
-    // For each ingredient input field which is not hidden
-    $('#ingredients .input-field:not(:hidden)').each(function (index) {
-        // Create an ID with the input field's index
-        const inputId = `ingredients-${index}`;
+function setFieldListLabels(selector, idPrefix, labelPrefix) {
+    // For each input-field in the selector which is not hidden
+    $(`${selector} .input-field:not(:hidden)`).each(function (index) {
+        // Create an ID for this input
+        const inputId = `${idPrefix}-${index}`;
 
-        // Set the ID and name of the input
+        // Assign the ID and name to the input
         $(this).find('input')
             .attr('id', inputId)
             .attr('name', inputId);
 
-        // Set the for attribute and the text of the label
+        // Set the for attribute and text of the label
         $(this).find('label')
             .attr('for', inputId)
-            .text(`Ingredient ${index + 1}`);
+            .text(`${labelPrefix} ${index + 1}`);
     });
 }
 
-function setStepLabels() {
-    $('#steps .input-field:not(:hidden)').each(function (index) {
-        const inputId = `steps-${index}`;
-
-        $(this).find('input')
-            .attr('id', inputId)
-            .attr('name', inputId);
-
-        $(this).find('label')
-            .attr('for', inputId)
-            .text(`Step ${index + 1}`);
-    });
-}
-
-function setServesFromLabel() {
-    $('#serves_from').siblings('label').text(`Serves From ${$('#serves_from').val()}`);
-}
-
-function setServesToLabel() {
-    $('#serves_to').siblings('label').text(`Serves To ${$('#serves_to').val()}`);
+function setRangeLabel(labelPrefix, input) {
+    // Set label of the range input to display its value
+    $(input).siblings('label').text(`${labelPrefix} ${$(input).val()}`);
 }

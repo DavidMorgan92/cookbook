@@ -139,26 +139,19 @@
                     <button class="btn red remove-btn" type="button">
                         <i class="material-icons">delete</i>
                     </button>
-
-                    <!-- Ingredient validation errors -->
-                    {% if ingredient.errors %}
+                </div>
+                
+                <!-- Ingredient validation errors -->
+                {% if ingredient.errors %}
+                <div class="col s12">
                     <ul class="red-text">
                         {% for error in ingredient.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>
-                    {% endif %}
                 </div>
-                {% endfor %}
-
-                <!-- Ingredients validation errors -->
-                {% if form.ingredients.errors %}
-                <ul class="red-text">
-                    {% for error in form.ingredients.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
                 {% endif %}
+                {% endfor %}
 
                 <!-- Add ingredient button -->
                 <div class="col s12">
@@ -179,26 +172,19 @@
                     <button class="btn red remove-btn" type="button">
                         <i class="material-icons">delete</i>
                     </button>
+                </div>
 
-                    <!-- Step validation errors -->
-                    {% if step.errors %}
+                <!-- Step validation errors -->
+                {% if step.errors %}
+                <div class="col s12">
                     <ul class="red-text">
                         {% for error in step.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>
-                    {% endif %}
                 </div>
-                {% endfor %}
-
-                <!-- Steps validation errors -->
-                {% if form.steps.errors %}
-                <ul class="red-text">
-                    {% for error in form.steps.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
                 {% endif %}
+                {% endfor %}
 
                 <!-- Add step button -->
                 <div class="col s12">

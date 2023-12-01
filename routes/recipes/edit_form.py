@@ -19,11 +19,11 @@ class EditForm(FlaskForm):
     time = StringField("Time", validators=[
         validators.DataRequired()])
 
-    serves_from = IntegerRangeField("Serves From", validators=[
+    serves_from = IntegerRangeField("Serves from", validators=[
         validators.DataRequired(),
         validators.NumberRange(min=1, max=10)])
 
-    serves_to = IntegerRangeField("Serves To", validators=[
+    serves_to = IntegerRangeField("Serves to", validators=[
         validators.DataRequired(),
         validators.NumberRange(min=1, max=10)])
 
@@ -31,10 +31,10 @@ class EditForm(FlaskForm):
         image_upload_set, "Only image file are allowed")])
 
     ingredients = FieldList(StringField(
-        "Ingredient", [validators.DataRequired()]), min_entries=1, max_entries=100)
+        "Ingredient", [validators.DataRequired()]), min_entries=1)
 
     steps = FieldList(StringField(
-        "Step", [validators.DataRequired()]), min_entries=1, max_entries=100)
+        "Step", [validators.DataRequired()]), min_entries=1)
 
     def validate_serves_from(form, field):
         """Raise a validation error if the serves_from field is greater than the serves_to field."""
