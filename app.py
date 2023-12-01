@@ -4,6 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from setup import create_app
 import routes.user.views as user_views
 import routes.recipes.views as recipes_views
+import field_list_extensions
 
 # Initialize environment variables
 try:
@@ -11,6 +12,9 @@ try:
     env.initialize()
 except:
     pass
+
+# Initialize extension methods for WTForms FieldList
+field_list_extensions.initialize()
 
 # Create and configure Flask app and MongoDB connection
 app = create_app()

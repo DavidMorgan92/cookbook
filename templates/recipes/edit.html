@@ -5,7 +5,8 @@
 <h3 class="center">{{ form.name.data }}</h3>
 
 <div class="row center">
-    <form class="col s12" action="{{ url_for('recipes_edit', id=id) }}" method="post" enctype="multipart/form-data">
+    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=id) }}" method="post"
+        enctype="multipart/form-data">
         {{ form.csrf_token }}
 
         <div class="card-panel">
@@ -14,7 +15,8 @@
             <!-- Name field -->
             <div class="row">
                 <div class="input-field col s12">
-                    {{ form.name(class_="validate" if not form.name.errors else "validate invalid") }}
+                    {{ form.name(class_="validate character-counter" if not form.name.errors else "validate invalid
+                    character-counter", data_length="50") }}
                     {{ form.name.label }}
 
                     <!-- Name validation errors -->
@@ -31,7 +33,8 @@
             <!-- Description field -->
             <div class="row">
                 <div class="input-field col s12">
-                    {{ form.description(class_="validate" if not form.description.errors else "validate invalid") }}
+                    {{ form.description(class_="validate character-counter" if not form.description.errors else
+                    "validate invalid character-counter", data_length="500") }}
                     {{ form.description.label }}
 
                     <!-- Description validation errors -->
@@ -65,8 +68,10 @@
             <div class="row">
                 <!-- Serves from field -->
                 <div class="input-field col s6">
-                    {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
-                    {{ form.serves_from.label }}
+                    <p class="range-field">
+                        {{ form.serves_from.label }}
+                        {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
+                    </p>
 
                     <!-- Serves from validation errors -->
                     {% if form.serves_from.errors %}
@@ -80,8 +85,10 @@
 
                 <!-- Serves to field -->
                 <div class="input-field col s6">
-                    {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
-                    {{ form.serves_to.label }}
+                    <p class="range-field">
+                        {{ form.serves_to.label }}
+                        {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
+                    </p>
 
                     <!-- Serves to validation errors -->
                     {% if form.serves_to.errors %}
@@ -130,7 +137,7 @@
 
                     <!-- Remove ingredient button -->
                     <button class="btn red remove-btn" type="button">
-                        <i class="material-icons">close</i>
+                        <i class="material-icons">delete</i>
                     </button>
 
                     <!-- Ingredient validation errors -->
@@ -170,7 +177,7 @@
 
                     <!-- Remove step button -->
                     <button class="btn red remove-btn" type="button">
-                        <i class="material-icons">close</i>
+                        <i class="material-icons">delete</i>
                     </button>
 
                     <!-- Step validation errors -->
@@ -184,7 +191,16 @@
                 </div>
                 {% endfor %}
 
-                <!-- Remove ingredient button -->
+                <!-- Steps validation errors -->
+                {% if form.steps.errors %}
+                <ul class="red-text">
+                    {% for error in form.steps.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <!-- Add step button -->
                 <div class="col s12">
                     <button class="btn add-btn" type="button">Add Step</button>
                 </div>

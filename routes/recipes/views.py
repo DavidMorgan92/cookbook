@@ -71,19 +71,23 @@ def edit(id):
 
         # Redirect to the my recipes page
         return redirect(url_for("recipes_index"))
-    
+
     # Populate the form with existing data
-    form.name.data = recipe["name"]
-    form.description.data = recipe["description"]
-    form.time.data = recipe["time"]
-    form.serves_from.data = recipe["serves"]["from"]
-    form.serves_to.data = recipe["serves"]["to"]
+    if not form.is_submitted():
+        form.name.data = recipe["name"]
+        form.description.data = recipe["description"]
+        form.time.data = recipe["time"]
+        form.serves_from.data = recipe["serves"]["from"]
+        form.serves_to.data = recipe["serves"]["to"]
 
-    for ingredient in recipe["ingredients"]:
-        form.ingredients.append_entry(ingredient)
+        for ingredient in recipe["ingredients"]:
+            form.ingredients.append_entry(ingredient)
 
-    for step in recipe["steps"]:
-        form.steps.append_entry(step)
+        for step in recipe["steps"]:
+            form.steps.append_entry(step)
+    else:
+        form.ingredients.prepend_entry()
+        form.steps.prepend_entry()
 
     # Render the edit recipe template
     return render_template("recipes/edit.html", form=form, id=id)
