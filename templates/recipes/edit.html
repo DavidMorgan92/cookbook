@@ -2,10 +2,14 @@
 
 {% block content %}
 
-<h3 class="center">{{ form.name.data }}</h3>
+<h3 class="center">{{ recipe["name"] }}</h3>
+
+<div class="center">
+    <img class="responsive-img" src="data:image;base64,{{ recipe['image_data'] }}" alt="Image of the recipe">
+</div>
 
 <div class="row center">
-    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=id) }}" method="post"
+    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=recipe['_id']) }}" method="post"
         enctype="multipart/form-data">
         {{ form.csrf_token }}
 

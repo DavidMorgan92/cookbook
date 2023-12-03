@@ -51,6 +51,9 @@ def login():
 
     form = LoginForm()
 
+    # Get the redirect_url query parameter
+    redirect_url = request.args.get("redirect_url", None)
+
     # If the form is posted and valid
     if form.validate_on_submit():
         # Get the user with the given username
@@ -69,11 +72,15 @@ def login():
             # Flash successful login message
             flash(f"Welcome {form.username.data}")
 
+            # Redirect to the redirect_url if it is given
+            if redirect_url:
+                return redirect(redirect_url)
+
             # Redirect to home page
             return redirect(url_for("home"))
 
     # Render the login template
-    return render_template("user/login.html", form=form)
+    return render_template("user/login.html", form=form, redirect_url=redirect_url)
 
 
 login.required_methods = ["GET", "POST"]
@@ -83,7 +90,7 @@ def logout():
     """View func to log out the user."""
 
     # Clear the user stored in session
-    session["user"] = None
+    del session["user"]
 
     # Redirect to home page
     return redirect(url_for("home"))

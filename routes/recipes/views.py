@@ -3,14 +3,12 @@ from bson.objectid import ObjectId
 from base64 import b64encode
 from setup import mongo
 from routes.recipes.edit_form import EditForm
+from authorize import authorize
 
 
+@authorize
 def index():
     """View func to show a list of recipes belonging to the logged in user."""
-
-    # Redirect to login if user is not logged in
-    if session["user"] == None:
-        return redirect(url_for("user/login"))
 
     # A filter to locate the logged in user's recipes in the database
     filter = {"creator": ObjectId(session["user"]["id"])}
@@ -25,12 +23,9 @@ def index():
 index.required_methods = ["GET"]
 
 
+@authorize
 def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
-
-    # Redirect to login if user is not logged in
-    if session["user"] == None:
-        return redirect(url_for("user/login"))
 
     # Raise 404 error if the ID is invalid
     if not ObjectId.is_valid(id):
@@ -95,18 +90,15 @@ def edit(id):
         form.steps.prepend_entry()
 
     # Render the edit recipe template
-    return render_template("recipes/edit.html", form=form, id=id)
+    return render_template("recipes/edit.html", form=form, recipe=recipe)
 
 
 edit.required_methods = ["GET", "POST"]
 
 
+@authorize
 def delete(id):
     """View func to delete a recipe belonging to the logged in user."""
-
-    # Redirect to login if the user is not logged in
-    if session["user"] == None:
-        return redirect(url_for("user/login"))
 
     # Raise 404 error if the ID is invalid
     if not ObjectId.is_valid(id):
