@@ -140,7 +140,8 @@ def delete(id):
     """View func to delete a recipe belonging to the logged in user."""
 
     # Get a recipe belonging to the logged in user and store the filter used to locate it
-    recipe, filter = find_recipe(id)
+    filter = find_recipe_filter(id)
+    recipe = find_recipe(filter)
 
     # If the form is posted
     if request.method == "POST":
