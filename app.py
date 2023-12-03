@@ -38,10 +38,11 @@ app.add_url_rule("/user/logout", "user_logout", view_func=user_views.logout)
 # Register recipe views
 app.add_url_rule("/recipes", "recipes_index", view_func=recipes_views.index)
 app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.edit)
+app.add_url_rule("/recipes/edit_image/<id>", "recipes_edit_image", view_func=recipes_views.edit_image)
 app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
 
 if __name__ == "__main__":
     host = "0.0.0.0"
     port = int(os.environ.get("PORT"))
     debug = os.environ.get("ENVIRONMENT") == "Development"
-    app.run(host=host, port=port, debug=debug)
+app.run(host=host, port=port, debug=debug)

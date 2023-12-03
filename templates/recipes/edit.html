@@ -1,16 +1,69 @@
 {% extends "base.html" %}
 
+{% import "recipes/recipe_image.html" as recipe_image %}
+
 {% block content %}
 
+<!-- Recipe title -->
 <h3 class="center">{{ recipe["name"] }}</h3>
 
-<div class="center">
-    <img class="responsive-img" src="data:image;base64,{{ recipe['image_data'] }}" alt="Image of the recipe">
+<div class="row center">
+    <!-- Recipe image -->
+    <div class="col s12">
+        {{ recipe_image.render(recipe.image_data, "responsive-img") }} 
+    </div>
+
+    <div class="col s12">
+        <!-- Edit image button -->
+        <button id="edit-image-button" type="button" class="btn">Change image</button>
+
+        <!-- Image validation errors -->
+        <div class="col s12">
+            {% if image_form.image.errors %}
+            <ul class="red-text">
+                {% for error in image_form.image.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <!-- Edit image form -->
+        <form id="edit-image-form" action="{{ url_for('recipes_edit_image', id=recipe['_id']) }}" method="post"
+            class="row" enctype="multipart/form-data" hidden>
+            {{ image_form.csrf_token }}
+
+            <!-- Image field -->
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Image</span>
+                    {{ image_form.image }}
+                </div>
+                <div class="file-path-wrapper">
+                    <input type="text" class="file-path" placeholder="Upload an image">
+                </div>
+                <span class="helper-text">Leave field blank to remove the image</span>
+            </div>
+
+            <div class="col s12">
+                <!-- Submit image button -->
+                <button type="submit" class="btn">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+
+                <!-- Cancel edit image button -->
+                <button id="cancel-edit-image-button" type="button" class="btn red">
+                    Cancel
+                    <i class="material-icons right">close</i>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="row center">
-    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=recipe['_id']) }}" method="post"
-        enctype="multipart/form-data">
+    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=recipe['_id']) }}" method="post">
         {{ form.csrf_token }}
 
         <div class="card-panel">
@@ -72,7 +125,7 @@
 
             <div class="row">
                 <!-- Serves from field -->
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6">
                     <p class="range-field">
                         {{ form.serves_from.label }}
                         {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
@@ -89,7 +142,7 @@
                 </div>
 
                 <!-- Serves to field -->
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6">
                     <p class="range-field">
                         {{ form.serves_to.label }}
                         {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
@@ -99,30 +152,6 @@
                     {% if form.serves_to.errors %}
                     <ul class="red-text">
                         {% for error in form.serves_to.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Image field -->
-            <div class="row">
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span>Image</span>
-                        {{ form.image }}
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input type="text" class="file-path" placeholder="Upload an image">
-                    </div>
-                </div>
-
-                <!-- Image validation errors -->
-                <div class="col s12">
-                    {% if form.image.errors %}
-                    <ul class="red-text">
-                        {% for error in form.image.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>

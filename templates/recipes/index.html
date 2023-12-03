@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% import "recipes/recipe_image.html" as recipe_image %}
+
 {% block content %}
 
 <h3 class="center">Your recipes</h2>
@@ -17,11 +19,7 @@
     <div class="col s12 m6">
         <div class="card left-align">
             <div class="card-image">
-                {% if recipe.image_data %}
-                <img src="data:image;base64,{{ recipe.image_data }}" alt="Image of the recipe">
-                {% else %}
-                <img src="{{ url_for('static', filename='images/missing-image.png') }}" alt="Image indicating the recipe has no image">
-                {% endif %}
+                {{ recipe_image.render(recipe.image_data) }}
             </div>
             <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">

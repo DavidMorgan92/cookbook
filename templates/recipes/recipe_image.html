@@ -1,0 +1,8 @@
+{% macro render(image_data, class) %}
+{% if image_data %}
+<img src="data:image;base64,{{ image_data }}" alt="Image of the recipe" class="{{ class }}">
+{% else %}
+<img src="{{ url_for('static', filename='images/missing-image.png') }}" alt="Image indicating the recipe has no image"
+    class="{{ class }}">
+{% endif %}
+{% endmacro %}

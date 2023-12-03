@@ -1,5 +1,4 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, FieldList, IntegerRangeField, IntegerField, TextAreaField, validators, ValidationError
 
 
@@ -23,9 +22,6 @@ class EditForm(FlaskForm):
     serves_to = IntegerRangeField("Serves to", validators=[
         validators.DataRequired(),
         validators.NumberRange(min=1, max=10)])
-
-    image = FileField("Image", validators=[
-        FileAllowed(["jpg", "png"], "Only JPG and PNG files are allowed")])
 
     ingredients = FieldList(StringField(
         "Ingredient", [validators.DataRequired()]), min_entries=1)

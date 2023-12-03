@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "bson",
+        "endmacro",
         "flask_pymongo",
         "werkzeug",
         "wtforms"

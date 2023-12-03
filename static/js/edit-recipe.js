@@ -18,6 +18,21 @@ $(document).ready(function () {
     // Update serves_from and serves_to labels when the values change
     $('#serves_from').on('change', () => setRangeLabel('Serves from', '#serves_from'));
     $('#serves_to').on('change', () => setRangeLabel('Serves to', '#serves_to'));
+
+    // Show edit-image-form and hide edit-image-button when edit-image-button is clicked
+    $('#edit-image-button').on('click', function () {
+        $('#edit-image-button').hide();
+        $('#edit-image-form').prop('hidden', false);
+    });
+
+    // Show edit-image-button and hide edit-image-form when cancel-edit-image-button is clicked
+    $('#cancel-edit-image-button').on('click', function (event) {
+        // Prevent form submission when cancel button is clicked
+        event.preventDefault();
+        
+        $('#edit-image-button').show();
+        $('#edit-image-form').prop('hidden', true);
+    });
 });
 
 function setupAddRemoveButtons(sectionId, templateId, insertAfterSelector, callback) {
