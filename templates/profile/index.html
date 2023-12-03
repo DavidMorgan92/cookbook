@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% import "recipes/recipe_image.html" as recipe_image %}
+{% import "recipes/recipe_card.html" as recipe_card %}
 
 {% block content %}
 
-<h3 class="center">{{ user["name"] }}'s profile</h3>
+<h3 class="center">{{ user.name }}'s profile</h3>
 
 <div class="row center">
     <!-- User's recipes -->
@@ -15,44 +15,7 @@
     {% endif %}
 
     {% for recipe in recipes %}
-    <div class="col s12 m6">
-        <div class="card left-align">
-            <div class="card-image">
-                {{ recipe_image.render(recipe.image_data) }}
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">
-                    {{ recipe.name }}
-                    <i class="material-icons right">more_vert</i>
-                </span>
-                <div class="row">
-                    <div class="col s4">
-                        <i class="material-icons left">person</i>
-                        {% if recipe.serves.from == recipe.serves.to %}
-                        {{ recipe.serves.from }}
-                        {% else %}
-                        {{ recipe.serves.from }}-{{ recipe.serves.to }}
-                        {% endif %}
-                    </div>
-                    <div class="col s4">
-                        <i class="material-icons left">hourglass_empty</i>
-                        {{ recipe.time_minutes }}m
-                    </div>
-                    <div class="col s4">
-                        <i class="material-icons left">star</i>
-                        {{ recipe.rating }}
-                    </div>
-                </div>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">
-                    {{ recipe.name }}
-                    <i class="material-icons right">close</i>
-                </span>
-                <p>{{ recipe.description }}</p>
-            </div>
-        </div>
-    </div>
+    {{ recipe_card.render(recipe, can_edit=False) }}
     {% endfor %}
 </div>
 

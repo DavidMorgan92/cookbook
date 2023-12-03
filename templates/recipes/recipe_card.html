@@ -1,0 +1,62 @@
+{% import "recipes/recipe_image.html" as recipe_image %}
+{% import "recipes/recipe_serves.html" as recipe_serves %}
+
+{% macro render(recipe, can_edit) %}
+<div class="col s12 m6">
+    <div class="card left-align">
+        <!-- Recipe image -->
+        <div class="card-image">
+            {{ recipe_image.render(recipe.image_data) }}
+        </div>
+
+        <!-- Card content -->
+        <div class="card-content">
+            <!-- Recipe name -->
+            <span class="card-title activator grey-text text-darken-4">
+                {{ recipe.name }}
+                <i class="material-icons right">more_vert</i>
+            </span>
+            <div class="row">
+                <!-- Serves icon -->
+                <div class="col s4">
+                    <i class="material-icons left">person</i>
+                    {{ recipe_serves.render(recipe) }}
+                </div>
+
+                <!-- Time icon -->
+                <div class="col s4">
+                    <i class="material-icons left">hourglass_empty</i>
+                    {{ recipe.time_minutes }}m
+                </div>
+
+                <!-- Rating icon -->
+                <div class="col s4">
+                    <i class="material-icons left">star</i>
+                    {{ recipe.rating }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card reveal details -->
+        <div class="card-reveal">
+            <!-- Recipe name -->
+            <span class="card-title grey-text text-darken-4">
+                {{ recipe.name }}
+                <i class="material-icons right">close</i>
+            </span>
+
+            <!-- Recipe description -->
+            <p>{{ recipe.description }}</p>
+        </div>
+
+        <!-- Action links -->
+        <div class="card-action">
+            <a href="{{ url_for('recipes_details', id=recipe._id)}}">Details</a>
+            {% if can_edit %}
+            <a href="{{ url_for('recipes_edit', id=recipe._id) }}">Edit</a>
+            <a href="{{ url_for('recipes_delete', id=recipe._id) }}">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endmacro %}

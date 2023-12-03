@@ -1,0 +1,7 @@
+{% macro render(recipe) %}
+{% if recipe.serves.from == recipe.serves.to %}
+{{ recipe.serves.from }}
+{% else %}
+{{ recipe.serves.from }}-{{ recipe.serves.to }}
+{% endif %}
+{% endmacro %}

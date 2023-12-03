@@ -24,6 +24,27 @@ def index():
 index.required_methods = ["GET"]
 
 
+def details(id):
+    """View func to publicly show the details of a recipe."""
+
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
+    # Get the recipe with the given ID
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(id)})
+
+    # Raise 404 if the recipe is not found
+    if recipe == None:
+        abort(404)
+
+    # Render the details template with the recipe
+    return render_template("recipes/details.html", recipe=recipe)
+
+
+details.required_methods = ["GET"]
+
+
 @authorize
 def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
