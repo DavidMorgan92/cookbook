@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="center">Your account</h3>
+
+<a href="{{ url_for('profile_index', id=id) }}" class="btn">
+    View your public profile
+</a>
+
+{% endblock %}

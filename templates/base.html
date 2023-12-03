@@ -22,7 +22,7 @@
                 <ul class="right hide-on-med-and-down">
                     {% if session.user %}
                     <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
-                    <li><a href="#">My Account</a></li>
+                    <li><a href="{{ url_for('account_index') }}">My Account</a></li>
                     <li><a class="logout-button">Log Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('user_login') }}">Log In</a></li>
@@ -36,7 +36,7 @@
         <ul class="sidenav" id="mobile-sidenav">
             {% if session.user %}
             <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
-            <li><a href="#">My Account</a></li>
+            <li><a href="{{ url_for('account_index') }}">My Account</a></li>
             <li><a class="logout-button">Log Out</a></li>
             {% else %}
             <li><a href="{{ url_for('user_login') }}">Log In</a></li>

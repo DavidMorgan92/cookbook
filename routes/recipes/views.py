@@ -99,7 +99,7 @@ def edit_image(id):
 
         # Update the recipe in the database
         filter = find_recipe_filter(id)
-        update = { "image_data": image_data }
+        update = {"image_data": image_data}
         mongo.db.recipes.update_one(filter, {"$set": update})
 
         # Flash a successfully edited message

@@ -4,6 +4,8 @@ from flask_wtf.csrf import CSRFProtect
 from setup import create_app
 import routes.user.views as user_views
 import routes.recipes.views as recipes_views
+import routes.account.views as account_views
+import routes.profile.views as profile_views
 import field_list_extensions
 
 # Initialize environment variables
@@ -41,8 +43,14 @@ app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.e
 app.add_url_rule("/recipes/edit_image/<id>", "recipes_edit_image", view_func=recipes_views.edit_image)
 app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
 
+# Register account views
+app.add_url_rule("/account", "account_index", view_func=account_views.index)
+
+# Register profile views
+app.add_url_rule("/profile/<id>", "profile_index", view_func=profile_views.index)
+
 if __name__ == "__main__":
     host = "0.0.0.0"
     port = int(os.environ.get("PORT"))
     debug = os.environ.get("ENVIRONMENT") == "Development"
-app.run(host=host, port=port, debug=debug)
+    app.run(host=host, port=port, debug=debug)
