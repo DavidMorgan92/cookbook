@@ -1,0 +1,232 @@
+{% import "recipes/recipe_image.html" as recipe_image %}
+
+{% macro render(recipe, form, image_form) %}
+<div class="row center">
+    <!-- Recipe image -->
+    <div class="col s12">
+        {{ recipe_image.render(recipe.image_data, "responsive-img") }} 
+    </div>
+
+    <div class="col s12">
+        <!-- Edit image button -->
+        <button id="edit-image-button" type="button" class="btn">Change image</button>
+
+        <!-- Image validation errors -->
+        <div class="col s12">
+            {% if image_form.image.errors %}
+            <ul class="red-text">
+                {% for error in image_form.image.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <!-- Edit image form -->
+        <form id="edit-image-form" action="{{ url_for('recipes_edit_image', id=recipe['_id']) }}" method="post"
+            class="row" enctype="multipart/form-data" hidden>
+            {{ image_form.csrf_token }}
+
+            <!-- Image field -->
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Image</span>
+                    {{ image_form.image }}
+                </div>
+                <div class="file-path-wrapper">
+                    <input type="text" class="file-path" placeholder="Upload an image">
+                </div>
+                <span class="helper-text">Leave field blank to remove the image</span>
+            </div>
+
+            <div class="col s12">
+                <!-- Submit image button -->
+                <button type="submit" class="btn">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+
+                <!-- Cancel edit image button -->
+                <button id="cancel-edit-image-button" type="button" class="btn red">
+                    Cancel
+                    <i class="material-icons right">close</i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row center">
+    <form id="edit-form" class="col s12" action="{{ url_for('recipes_edit', id=recipe['_id']) }}" method="post">
+        {{ form.csrf_token }}
+
+        <div class="card-panel">
+            <h4>Recipe details</h4>
+
+            <!-- Name field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.name(class_="validate character-counter" if not form.name.errors else "validate invalid
+                    character-counter", data_length="50") }}
+                    {{ form.name.label }}
+
+                    <!-- Name validation errors -->
+                    {% if form.name.errors %}
+                    <ul class="red-text">
+                        {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Description field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.description(class_="validate character-counter materialize-textarea" if not
+                    form.description.errors else
+                    "validate invalid character-counter materialize-textarea", data_length="500") }}
+                    {{ form.description.label }}
+
+                    <!-- Description validation errors -->
+                    {% if form.description.errors %}
+                    <ul class="red-text">
+                        {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Time field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.time(class_="validate" if not form.time.errors else "validate invalid") }}
+                    {{ form.time.label }}
+
+                    <!-- Time validation errors -->
+                    {% if form.time.errors %}
+                    <ul class="red-text">
+                        {% for error in form.time.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Serves from field -->
+                <div class="input-field col s12 m6">
+                    <p class="range-field">
+                        {{ form.serves_from.label }}
+                        {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
+                    </p>
+
+                    <!-- Serves from validation errors -->
+                    {% if form.serves_from.errors %}
+                    <ul class="red-text">
+                        {% for error in form.serves_from.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                <!-- Serves to field -->
+                <div class="input-field col s12 m6">
+                    <p class="range-field">
+                        {{ form.serves_to.label }}
+                        {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
+                    </p>
+
+                    <!-- Serves to validation errors -->
+                    {% if form.serves_to.errors %}
+                    <ul class="red-text">
+                        {% for error in form.serves_to.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h4>Ingredients</h4>
+
+            <!-- Ingredients -->
+            <div id="ingredients" class="row">
+                {% for ingredient in form.ingredients %}
+                <div class="input-field col s12 d-flex">
+                    {{ ingredient(class_="validate" if not ingredient.errors else "validate invalid") }}
+                    {{ ingredient.label("Ingredient " + loop.index|string) }}
+
+                    <!-- Remove ingredient button -->
+                    <button class="btn red remove-btn" type="button">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </div>
+
+                <!-- Ingredient validation errors -->
+                {% if ingredient.errors %}
+                <div class="col s12">
+                    <ul class="red-text">
+                        {% for error in ingredient.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Add ingredient button -->
+                <div class="col s12">
+                    <button class="btn add-btn" type="button">Add Ingredient</button>
+                </div>
+            </div>
+
+            <h4>Steps</h4>
+
+            <!-- Steps -->
+            <div id="steps" class="row">
+                {% for step in form.steps %}
+                <div class="input-field col s12 d-flex">
+                    {{ step(class_="validate" if not step.errors else "validate invalid") }}
+                    {{ step.label("Step " + loop.index|string) }}
+
+                    <!-- Remove step button -->
+                    <button class="btn red remove-btn" type="button">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </div>
+
+                <!-- Step validation errors -->
+                {% if step.errors %}
+                <div class="col s12">
+                    <ul class="red-text">
+                        {% for error in step.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Add step button -->
+                <div class="col s12">
+                    <button class="btn add-btn" type="button">Add Step</button>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row">
+                <button type="submit" class="btn-large">
+                    Save Changes
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endmacro %}

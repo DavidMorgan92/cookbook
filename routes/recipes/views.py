@@ -46,6 +46,33 @@ details.required_methods = ["GET"]
 
 
 @authorize
+def create():
+    # Create a default recipe
+    recipe = {
+        "name": "New recipe",
+        "description": "",
+        "time_minutes": 0,
+        "serves": {
+            "from": 1,
+            "to": 1
+        },
+        "image_data": None,
+        "ingredients": [],
+        "steps": [],
+        "creator": ObjectId(session["user"]["id"])
+    }
+
+    # Insert the new recipe into the database
+    insert_result = mongo.db.recipes.insert_one(recipe)
+
+    # Redirect to the edit view for the new recipe
+    return redirect(url_for("recipes_edit", id=insert_result.inserted_id))
+
+
+create.required_methods = ["POST"]
+
+
+@authorize
 def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
 
@@ -95,6 +122,9 @@ def edit(id):
         for step in recipe["steps"]:
             form.steps.append_entry(step)
     else:
+        # Flash changes not saved message
+        flash("Changes not saved")
+
         # If form is submitted but invalid prepend an empty entry to each of the field lists to serve as a template
         form.ingredients.prepend_entry()
         form.steps.prepend_entry()

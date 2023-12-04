@@ -7,14 +7,23 @@
 <h3 class="center">Your recipes</h2>
 
 <div class="row center">
+    <!-- Text to show if the user has no recipes -->
     {% if recipes|length == 0 %}
-    <h3>You have not created any recipes yet</h3>
+    <h4>You have not created any recipes yet</h4>
     {% endif %}
 
+    <!-- Create recipe button -->
     <div class="col s12">
-        <a href="#" class="btn-large">Create a Recipe</a>
+        <form action="{{ url_for('recipes_create') }}" method="post">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+
+            <button type="submit" class="btn-large">
+                Create a Recipe
+            </button>
+        </form>
     </div>
 
+    <!-- List of the logged in user's recipes -->
     {% for recipe in recipes %}
     {{ recipe_card.render(recipe, can_edit=True) }}
     {% endfor %}

@@ -40,6 +40,7 @@ app.add_url_rule("/user/logout", "user_logout", view_func=user_views.logout)
 # Register recipe views
 app.add_url_rule("/recipes", "recipes_index", view_func=recipes_views.index)
 app.add_url_rule("/recipes/<id>", "recipes_details", view_func=recipes_views.details)
+app.add_url_rule("/recipes/create", "recipes_create", view_func=recipes_views.create)
 app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.edit)
 app.add_url_rule("/recipes/edit_image/<id>", "recipes_edit_image", view_func=recipes_views.edit_image)
 app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
