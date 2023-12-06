@@ -16,37 +16,39 @@
 </div>
 
 <div class="row center">
-    <!-- Description -->
-    <div class="col s12">
-        <p>{{ recipe.description }}</p>
-    </div>
-
-    <!-- How many the recipe serves -->
-    <div class="col s12">
-        <p>Serves {{ recipe_serves.render(recipe) }}</p>
-    </div>
-
-    <!-- How long the recipe takes -->
-    <div class="col s12">
-        <p>Takes around {{ recipe.time_minutes }} minutes</p>
-    </div>
-
-    <!-- Ingredients -->
-    <div class="col s12">
-        <ul>
-            {% for ingredient in recipe.ingredients %}
-            <li>{{ ingredient }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Steps -->
-    <div class="col s12">
-        <ol>
-            {% for step in recipe.steps %}
-            <li>{{ step }}</li>
-            {% endfor %}
-        </ol>
+    <div class="card-panel">
+        <div class="row">
+            <div class="col s12">
+                <!-- Description -->
+                <p>{{ recipe.description }}</p>
+            </div>
+            
+            <div class="col s12">
+                <!-- How long the recipe takes -->
+                <p>Takes around {{ recipe.time_minutes }} minutes</p>
+            </div>
+        
+            <div class="col s12 m3">
+                <!-- How many the recipe serves-->
+                <p>Serves {{ recipe_serves.render(recipe) }}</p>
+                
+                <!-- Ingredients -->
+                <ul>
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        
+            <div class="col s12 m9">
+                <!-- Steps -->
+                <ol>
+                    {% for step in recipe.steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 

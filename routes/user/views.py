@@ -30,7 +30,8 @@ def register():
 
             # Store the user ID in the session
             session["user"] = {
-                "id": str(insert_result.inserted_id)
+                "id": str(insert_result.inserted_id),
+                "name": user.name
             }
 
             # Flash successful registered message
@@ -66,7 +67,8 @@ def login():
         else:
             # Store the user ID in the session
             session["user"] = {
-                "id": str(user["_id"])
+                "id": str(user["_id"]),
+                "name": str(user["name"])
             }
 
             # Flash successful login message

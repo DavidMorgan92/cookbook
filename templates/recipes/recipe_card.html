@@ -1,7 +1,7 @@
 {% import "recipes/recipe_image.html" as recipe_image %}
 {% import "recipes/recipe_serves.html" as recipe_serves %}
 
-{% macro render(recipe, can_edit) %}
+{% macro render(recipe, creator_id, creator_name, can_edit) %}
 <div class="col s12 m12 l6">
     <div class="card left-align">
         <!-- Recipe image -->
@@ -35,6 +35,17 @@
                     {{ recipe.rating }}
                 </div>
             </div>
+            {% if creator_id %}
+            <div class="row">
+                <div class="col s12 right-align">
+                    <!-- Link to creator's profile-->
+                    <a href="{{ url_for('profile_index', id=creator_id) }}" class="small-text italicize">
+                        <i class="material-icons right">person_outline</i>
+                        {{ creator_name }}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
         </div>
         
         <!-- Card reveal details -->

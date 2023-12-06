@@ -15,7 +15,7 @@
     {% endif %}
 
     {% for recipe in recipes %}
-    {{ recipe_card.render(recipe, can_edit=False) }}
+    {{ recipe_card.render(recipe, creator_id=user._id, creator_name=user.name, can_edit=False) }}
     {% endfor %}
 </div>
 
