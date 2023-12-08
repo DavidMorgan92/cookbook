@@ -1,6 +1,6 @@
 from flask import request, render_template, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from setup import mongo
+from mongo import get_user_by_name, insert_user
 from routes.user.login_form import LoginForm
 from routes.user.register_form import RegisterForm
 
@@ -13,7 +13,7 @@ def register():
     # If the form is posted and valid
     if form.validate_on_submit():
         # See if there is already a user with this name
-        user = mongo.db.users.find_one({"name": form.username.data})
+        user = get_user_by_name(form.username.data)
 
         if user != None:
             # Flash a message if the username is taken
@@ -26,7 +26,7 @@ def register():
             }
 
             # Store the user record in the database
-            insert_result = mongo.db.users.insert_one(user)
+            insert_result = insert_user(user)
 
             # Store the user ID in the session
             session["user"] = {
@@ -58,7 +58,7 @@ def login():
     # If the form is posted and valid
     if form.validate_on_submit():
         # Get the user with the given username
-        user = mongo.db.users.find_one({"name": form.username.data})
+        user = get_user_by_name(form.username.data)
 
         # If the username or password is incorrect
         if user == None or not check_password_hash(user["password_hash"], form.password.data):

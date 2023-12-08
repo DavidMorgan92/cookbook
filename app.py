@@ -1,7 +1,7 @@
 import os
-from flask import render_template
+from flask import render_template, Flask
 from flask_wtf.csrf import CSRFProtect
-from setup import create_app
+import mongo
 import routes.user.views as user_views
 import routes.recipes.views as recipes_views
 import routes.account.views as account_views
@@ -19,12 +19,17 @@ except:
 # Initialize extension methods for WTForms FieldList
 field_list_extensions.initialize()
 
-# Create and configure Flask app and MongoDB connection
-app = create_app()
+# Create and configure Flask app
+app = Flask("Cook Book")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Add CSRF protection to app
 csrf = CSRFProtect()
 csrf.init_app(app)
+
+# Initialize MongoDb connection
+mongo.initialize(app)
 
 
 # Register home view

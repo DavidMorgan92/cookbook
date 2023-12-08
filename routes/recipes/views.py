@@ -1,7 +1,7 @@
 from flask import session, redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from setup import mongo
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, insert_recipe, update_recipe, delete_recipe
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
@@ -11,11 +11,8 @@ from routes.recipes.edit_image_form import EditImageForm
 def index():
     """View func to show a list of recipes belonging to the logged in user."""
 
-    # A filter to locate the logged in user's recipes in the database
-    filter = {"creator_id": ObjectId(session["user"]["id"])}
-
     # Get list of recipes belonging to the logged in user
-    recipes = list(mongo.db.recipes.find(filter))
+    recipes = get_recipes_by_creator_id(session["user"]["id"])
 
     # Render template with list of recipes
     return render_template("recipes/index.html", recipes=recipes)
@@ -32,7 +29,7 @@ def details(id):
         abort(404)
 
     # Get the recipe with the given ID
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(id)})
+    recipe = get_recipe_by_id(id)
 
     # Raise 404 if the recipe is not found
     if recipe == None:
@@ -63,7 +60,7 @@ def create():
     }
 
     # Insert the new recipe into the database
-    insert_result = mongo.db.recipes.insert_one(recipe)
+    insert_result = insert_recipe(recipe)
 
     # Redirect to the edit view for the new recipe
     return redirect(url_for("recipes_edit", id=insert_result.inserted_id))
@@ -76,9 +73,16 @@ create.required_methods = ["POST"]
 def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
 
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
     # Get a recipe belonging to the logged in user with the given ID
-    filter = find_recipe_filter(id)
-    recipe = find_recipe(filter)
+    recipe = get_recipe_by_id(id)
+
+    # Raise 404 if the recipe is not found
+    if recipe == None:
+        abort(404)
 
     # Create the forms
     form = EditForm()
@@ -100,7 +104,7 @@ def edit(id):
         }
 
         # Update the recipe in the database
-        mongo.db.recipes.update_one(filter, {"$set": update})
+        update_recipe(id, update)
 
         # Flash a successfully edited message
         flash("Changes saved")
@@ -140,6 +144,10 @@ edit.required_methods = ["GET", "POST"]
 def edit_image(id):
     """View func to update the image of a recipe belonging to the logged in user."""
 
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
     # Create the edit image form
     image_form = EditImageForm()
 
@@ -149,9 +157,8 @@ def edit_image(id):
         image_data = b64encode(image.read()).decode() if image else None
 
         # Update the recipe in the database
-        filter = find_recipe_filter(id)
         update = {"image_data": image_data}
-        mongo.db.recipes.update_one(filter, {"$set": update})
+        update_recipe(id, update)
 
         # Flash a successfully edited message
         flash("Changes saved")
@@ -169,14 +176,21 @@ edit_image.required_methods = ["POST"]
 def delete(id):
     """View func to delete a recipe belonging to the logged in user."""
 
-    # Get a recipe belonging to the logged in user and store the filter used to locate it
-    filter = find_recipe_filter(id)
-    recipe = find_recipe(filter)
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
+    # Get a recipe belonging to the logged in user with the given ID
+    recipe = get_recipe_by_id(id)
+
+    # Raise 404 if the recipe is not found
+    if recipe == None:
+        abort(404)
 
     # If the form is posted
     if request.method == "POST":
         # Delete the recipe with the given ID that also belongs to the logged in user
-        mongo.db.recipes.delete_one(filter)
+        delete_recipe(id)
 
         # Flash a successfully deleted message
         flash("Recipe deleted")
@@ -189,30 +203,3 @@ def delete(id):
 
 
 delete.required_methods = ["GET", "POST"]
-
-
-def find_recipe_filter(id):
-    """Create a filter to locate a recipe belonging to the logged in user by its ID."""
-
-    # Raise 404 error if the ID is invalid
-    if not ObjectId.is_valid(id):
-        abort(404)
-
-    # A filter to locate the recipe in the database
-    return {"_id": ObjectId(id), "creator_id": ObjectId(session["user"]["id"])}
-
-
-def find_recipe(filter):
-    """
-    Get a recipe belonging to the logged in user by its ID.
-    """
-
-    # Get a recipe that matches the filter
-    recipe = mongo.db.recipes.find_one(filter)
-
-    # Raise 404 error if a matching recipe is not found
-    if recipe == None:
-        abort(404)
-
-    # Return recipe
-    return recipe
