@@ -18,6 +18,28 @@
 <div class="row center">
     <div class="card-panel">
         <div class="row">
+            <div class="col s12 right-align">
+                {% if is_favourite %}
+                <!-- Remove from favourites action -->
+                <form action="{{ url_for('recipes_favourite', id=recipe._id, set='off') }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn">
+                        <i class="material-icons right">favorite_border</i>
+                        Unfavourite    
+                    </button>
+                </form>
+                {% else %}
+                <!-- Add to favourites action -->
+                <form action="{{ url_for('recipes_favourite', id=recipe._id, set='on') }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn">
+                        <i class="material-icons right">favorite</i>
+                        Favourite    
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+
             <div class="col s12">
                 <!-- Description -->
                 <p>{{ recipe.description }}</p>

@@ -81,13 +81,24 @@ def insert_recipe(recipe):
 def update_recipe(id, update):
     """Update a recipe record."""
 
-    return mongo.db.recipes.update_one(
-        {"_id": ObjectId(id)},
-        {"$set": update}
-    )
+    return mongo.db.recipes.update_one({"_id": ObjectId(id)}, {"$set": update})
 
 
 def delete_recipe(id):
     """Delete a recipe record."""
 
     return mongo.db.recipes.delete_one({"_id": ObjectId(id)})
+
+
+def favourite_recipe(user_id, recipe_id):
+    """Add a recipe to the user's favourites array."""
+
+    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                              "$addToSet": {"favourites": ObjectId(recipe_id)}})
+
+
+def unfavourite_recipe(user_id, recipe_id):
+    """Remove a recipe from the user's favourites array."""
+
+    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                              "$pull": {"favourites": ObjectId(recipe_id)}})

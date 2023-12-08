@@ -36,8 +36,13 @@ def details(id):
     if recipe == None:
         abort(404)
 
+    # Get user data if user is logged in
+    if is_logged_in():
+        user = get_user_by_id(logged_in_user_id())
+        is_favourite = ObjectId(id) in user["favourites"]
+
     # Render the details template with the recipe
-    return render_template("recipes/details.html", recipe=recipe)
+    return render_template("recipes/details.html", recipe=recipe, is_favourite=is_favourite)
 
 
 details.required_methods = ["GET"]
@@ -204,3 +209,43 @@ def delete(id):
 
 
 delete.required_methods = ["GET", "POST"]
+
+
+@authorize
+def favourite(id):
+    """Add a recipe to the logged in user's favourites."""
+
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
+    # Get a recipe belonging to the logged in user with the given ID
+    recipe = get_recipe_by_id(id)
+
+    # Raise 404 if the recipe is not found
+    if recipe == None:
+        abort(404)
+
+    # Get the set query parameter
+    set_flag = request.args.get("set", None)
+
+    match set_flag:
+        case "on":
+            # Add the recipe to the logged in user's favourites
+            favourite_recipe(logged_in_user_id(), id)
+            
+            # Flash a success message
+            flash("Added to favourites")
+
+        case "off":
+            # Remove the recipe from the logged in user's favourites
+            unfavourite_recipe(logged_in_user_id(), id)
+
+            # Flash a success message
+            flash("Removed from favourites")
+
+    # Redirect to the recipe details page
+    return redirect(url_for("recipes_details", id=id))
+
+
+favourite.required_methods = ["POST"]

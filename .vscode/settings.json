@@ -6,6 +6,7 @@
         "favourited",
         "favourites",
         "flask_pymongo",
+        "unfavourite",
         "werkzeug",
         "wtforms"
     ]

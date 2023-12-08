@@ -50,6 +50,7 @@ app.add_url_rule("/recipes/create", "recipes_create", view_func=recipes_views.cr
 app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.edit)
 app.add_url_rule("/recipes/edit_image/<id>", "recipes_edit_image", view_func=recipes_views.edit_image)
 app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
+app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite", view_func=recipes_views.favourite)
 
 # Register account views
 app.add_url_rule("/account", "account_index", view_func=account_views.index)
