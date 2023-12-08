@@ -6,6 +6,7 @@ import routes.user.views as user_views
 import routes.recipes.views as recipes_views
 import routes.account.views as account_views
 import routes.profile.views as profile_views
+import routes.favourites.views as favourites_views
 import field_list_extensions
 
 # Initialize environment variables
@@ -50,6 +51,9 @@ app.add_url_rule("/account", "account_index", view_func=account_views.index)
 
 # Register profile views
 app.add_url_rule("/profile/<id>", "profile_index", view_func=profile_views.index)
+
+# Register favourites views
+app.add_url_rule("/favourites", "favourites_index", view_func=favourites_views.index)
 
 if __name__ == "__main__":
     host = "0.0.0.0"

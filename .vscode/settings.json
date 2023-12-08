@@ -2,6 +2,9 @@
     "cSpell.words": [
         "bson",
         "endmacro",
+        "favourite",
+        "favourited",
+        "favourites",
         "flask_pymongo",
         "werkzeug",
         "wtforms"

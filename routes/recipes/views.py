@@ -12,7 +12,7 @@ def index():
     """View func to show a list of recipes belonging to the logged in user."""
 
     # A filter to locate the logged in user's recipes in the database
-    filter = {"creator": ObjectId(session["user"]["id"])}
+    filter = {"creator_id": ObjectId(session["user"]["id"])}
 
     # Get list of recipes belonging to the logged in user
     recipes = list(mongo.db.recipes.find(filter))
@@ -59,7 +59,7 @@ def create():
         "image_data": None,
         "ingredients": [],
         "steps": [],
-        "creator": ObjectId(session["user"]["id"])
+        "creator_id": ObjectId(session["user"]["id"])
     }
 
     # Insert the new recipe into the database
@@ -199,7 +199,7 @@ def find_recipe_filter(id):
         abort(404)
 
     # A filter to locate the recipe in the database
-    return {"_id": ObjectId(id), "creator": ObjectId(session["user"]["id"])}
+    return {"_id": ObjectId(id), "creator_id": ObjectId(session["user"]["id"])}
 
 
 def find_recipe(filter):

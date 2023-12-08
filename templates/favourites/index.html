@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% import "recipes/recipe_card.html" as recipe_card %}
+
+{% block content %}
+
+<h3 class="center">Your favourite recipes</h2>
+
+<div class="row center">
+    <!-- Text to show if the user has no favourite recipes -->
+    {% if recipes|length == 0 %}
+    <h4>You have not favourited any recipes yet</h4>
+    {% endif %}
+
+    <!-- List of the logged in user's favourite recipes -->
+    {% for recipe in recipes %}
+    {{ recipe_card.render(recipe, recipe.creator.name, can_edit=False) }}
+    {% endfor %}
+</div>
+
+{% endblock %}
