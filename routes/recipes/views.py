@@ -1,10 +1,11 @@
-from flask import session, redirect, url_for, abort, render_template, request, flash
+from flask import redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from mongo import get_recipes_by_creator_id, get_recipe_by_id, insert_recipe, update_recipe, delete_recipe
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
+from session import is_logged_in, logged_in_user_id
 
 
 @authorize
@@ -12,7 +13,7 @@ def index():
     """View func to show a list of recipes belonging to the logged in user."""
 
     # Get list of recipes belonging to the logged in user
-    recipes = get_recipes_by_creator_id(session["user"]["id"])
+    recipes = get_recipes_by_creator_id(logged_in_user_id())
 
     # Render template with list of recipes
     return render_template("recipes/index.html", recipes=recipes)
@@ -56,7 +57,7 @@ def create():
         "image_data": None,
         "ingredients": [],
         "steps": [],
-        "creator_id": ObjectId(session["user"]["id"])
+        "creator_id": ObjectId(logged_in_user_id())
     }
 
     # Insert the new recipe into the database

@@ -1,8 +1,9 @@
-from flask import request, render_template, session, redirect, url_for, flash
+from flask import request, render_template, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from mongo import get_user_by_name, insert_user
 from routes.user.login_form import LoginForm
 from routes.user.register_form import RegisterForm
+from session import logout as logout_of_session, login as login_to_session
 
 
 def register():
@@ -29,10 +30,7 @@ def register():
             insert_result = insert_user(user)
 
             # Store the user ID in the session
-            session["user"] = {
-                "id": str(insert_result.inserted_id),
-                "name": user.name
-            }
+            login_to_session(str(insert_result.inserted_id), user["name"])
 
             # Flash successful registered message
             flash(f"Welcome {form.username.data}")
@@ -66,10 +64,7 @@ def login():
             flash("Username or password is incorrect")
         else:
             # Store the user ID in the session
-            session["user"] = {
-                "id": str(user["_id"]),
-                "name": str(user["name"])
-            }
+            login_to_session(str(user["_id"]), user["name"])
 
             # Flash successful login message
             flash(f"Welcome {form.username.data}")
@@ -92,7 +87,7 @@ def logout():
     """View func to log out the user."""
 
     # Clear the user stored in session
-    del session["user"]
+    logout_of_session()
 
     # Redirect to home page
     return redirect(url_for("home"))
