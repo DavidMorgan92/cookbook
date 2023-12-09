@@ -55,6 +55,62 @@ def get_recipe_by_id(id):
     return mongo.db.recipes.find_one({"_id": ObjectId(id)})
 
 
+def get_recipe_by_id_with_comment_creator_names(id):
+    """Return one recipe which matches the given ID with its comments array containing their creators' names."""
+
+    # https://copyprogramming.com/howto/mongodb-lookup-on-array-of-objects-with-reference-objectid
+    recipes = mongo.db.recipes.aggregate([
+        {
+            "$match": {
+                "_id": ObjectId(id)
+            }
+        },
+        {
+            "$lookup": {
+                "from": "users",
+                "localField": "comments.creator_id",
+                "foreignField": "_id",
+                "as": "comment_creators",
+                "pipeline": [
+                    {
+                        # Only get the users' names
+                        "$project": {"name": True}
+                    }
+                ]
+            }
+        },
+        {
+            "$set": {
+                "comments": {
+                    "$map": {
+                        "input": "$comments",
+                        "in": {
+                            "$mergeObjects": [
+                                "$$this",
+                                {
+                                    "creator": {
+                                        "$arrayElemAt": [
+                                            "$comment_creators",
+                                            {
+                                                "$indexOfArray": ["$comment_creators._id", "$$this.creator_id"]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "$unset": "comment_creators"
+        }
+    ])
+
+    return recipes.try_next()
+
+
 def insert_recipe(recipe):
     """Insert a new recipe record."""
 
