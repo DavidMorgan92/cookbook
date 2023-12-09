@@ -90,7 +90,7 @@ def logout():
     logout_of_session()
 
     # Redirect to home page
-    return redirect(url_for("home"))
+    return redirect(url_for("home_index"))
 
 
 logout.required_methods = ["POST"]
