@@ -1,7 +1,7 @@
 from flask import redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from mongo import get_recipes_by_creator_id, get_recipe_by_id, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
@@ -252,3 +252,20 @@ def favourite(id):
 
 
 favourite.required_methods = ["POST"]
+
+
+@authorize
+def favourites():
+    """View func to show a list of the logged in user's favourite recipes."""
+
+    # Get the data for the logged in user
+    user = get_user_by_id(logged_in_user_id())
+
+    # Get the user's favourite recipes
+    recipes = get_all_recipes_by_id_with_creator_name(user["favourites"])
+
+    # Show all the recipes
+    return render_template("recipes/favourites.html", recipes=recipes)
+
+
+favourites.required_methods = ["GET"]

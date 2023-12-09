@@ -6,7 +6,6 @@ import routes.user.views as user_views
 import routes.recipes.views as recipes_views
 import routes.account.views as account_views
 import routes.profile.views as profile_views
-import routes.favourites.views as favourites_views
 import field_list_extensions
 import session
 
@@ -71,6 +70,8 @@ app.add_url_rule("/recipes/delete/<id>", "recipes_delete",
                  view_func=recipes_views.delete)
 app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite",
                  view_func=recipes_views.favourite)
+app.add_url_rule("/recipes/favourites", "recipes_favourites",
+                 view_func=recipes_views.favourites)
 
 # Register account views
 app.add_url_rule("/account", "account_index", view_func=account_views.index)
@@ -78,10 +79,6 @@ app.add_url_rule("/account", "account_index", view_func=account_views.index)
 # Register profile views
 app.add_url_rule("/profile/<id>", "profile_index",
                  view_func=profile_views.index)
-
-# Register favourites views
-app.add_url_rule("/favourites", "favourites_index",
-                 view_func=favourites_views.index)
 
 if __name__ == "__main__":
     host = "0.0.0.0"
