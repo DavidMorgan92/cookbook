@@ -2,6 +2,7 @@ import os
 from flask import render_template, Flask
 from flask_wtf.csrf import CSRFProtect
 import mongo
+import routes.home.views as home_views
 import routes.user.views as user_views
 import routes.recipes.views as recipes_views
 import routes.account.views as account_views
@@ -42,13 +43,9 @@ def session_context_processor():
     }
 
 
-# Register home view
-@app.route("/")
-def home():
-    """View func to display the home page."""
-
-    return render_template("home.html")
-
+# Register home views
+app.add_url_rule("/", "home_index", view_func=home_views.index)
+app.add_url_rule("/search", "home_search", view_func=home_views.search)
 
 # Register user views
 app.add_url_rule("/user/register", "user_register",

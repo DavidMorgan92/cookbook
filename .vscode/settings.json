@@ -9,5 +9,6 @@
         "unfavourite",
         "werkzeug",
         "wtforms"
-    ]
+    ],
+    "files.autoSave": "off"
 }

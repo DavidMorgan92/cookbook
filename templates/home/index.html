@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% import "home/search_form.html" as search_form %}
+
 {% block content %}
 
 <!-- Hero image and site heading -->
@@ -7,15 +9,11 @@
     <div class="col s12">
         <h1 class="center blue-grey-text text-lighten-5">The Home of Home Cooking</h1>
     </div>
-    
+
     <!-- Search form -->
-    <form class="col s10 offset-s1 white">
-        <div class="input-field">
-            <i class="material-icons prefix">search</i>
-            <input id="search" name="search" type="search" class="validate">
-            <label for="search">Search all recipes</label>
-        </div>
-    </form>
+    <div class="col s10 offset-s1">
+        {{ search_form.render(form) }}
+    </div>
 </section>
 
 <!-- Popular recipes -->

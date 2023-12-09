@@ -44,25 +44,8 @@ def get_all_recipes_by_id_with_creator_name(recipe_ids):
                 "_id": {"$in": recipe_ids}
             }
         },
-        {
-            # Look up related user objects
-            "$lookup": {
-                "from": "users",
-                "localField": "creator_id",
-                "foreignField": "_id",
-                "as": "creator",
-                "pipeline": [
-                    {
-                        # Only get the users' names
-                        "$project": {"name": True}
-                    }
-                ]
-            }
-        },
-        {
-            # Unwind the related user lookup from an array to an object
-            "$unwind": {"path": "$creator"}
-        }
+        # Add recipe creator's name to returned objects
+        *add_creator_name()
     ]))
 
 
@@ -93,12 +76,57 @@ def delete_recipe(id):
 def favourite_recipe(user_id, recipe_id):
     """Add a recipe to the user's favourites array."""
 
-    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-                              "$addToSet": {"favourites": ObjectId(recipe_id)}})
+    return mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+        "$addToSet": {"favourites": ObjectId(recipe_id)}})
 
 
 def unfavourite_recipe(user_id, recipe_id):
     """Remove a recipe from the user's favourites array."""
 
-    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-                              "$pull": {"favourites": ObjectId(recipe_id)}})
+    return mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+        "$pull": {"favourites": ObjectId(recipe_id)}})
+
+
+def search_recipes(query):
+    """Return a list of recipes that match the search query."""
+
+    return list(mongo.db.recipes.aggregate([
+        {
+            "$search": {
+                "index": "default",
+                "text": {
+                    "path": "name",
+                    "query": query,
+                    "fuzzy": {}
+                }
+            }
+        },
+        # Add recipe creator's name to returned objects
+        *add_creator_name()
+    ]))
+
+
+def add_creator_name():
+    """Return elements of an aggregate pipeline that will add the recipe creator's name to the returned objects."""
+
+    return [
+        {
+            # Look up related user objects
+            "$lookup": {
+                "from": "users",
+                "localField": "creator_id",
+                "foreignField": "_id",
+                "as": "creator",
+                "pipeline": [
+                    {
+                        # Only get the users' names
+                        "$project": {"name": True}
+                    }
+                ]
+            }
+        },
+        {
+            # Unwind the related user lookup from an array to an object
+            "$unwind": {"path": "$creator"}
+        }
+    ]

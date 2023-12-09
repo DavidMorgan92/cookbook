@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% import "recipes/recipe_card.html" as recipe_card %}
+{% import "home/search_form.html" as search_form %}
+
+{% block content %}
+
+<h3 class="center">Search All Recipes</h3>
+
+<!-- Search form -->
+{{ search_form.render(form) }}
+
+<p class="italicize">Found {{ recipes|length }} recipes</p>
+
+<!-- Search results -->
+{% for recipe in recipes %}
+{{ recipe_card.render(recipe, recipe.creator.name, can_edit=False) }}
+{% endfor %}
+
+{% endblock %}

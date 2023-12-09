@@ -1,0 +1,15 @@
+{% macro render(form) %}
+<form action="{{ url_for('home_search') }}" method="get" class="card-panel">
+    <div class="input-field d-flex">
+        <!-- Search query field -->
+        <i class="material-icons prefix">search</i>
+        {{ form.q(class_="validate" if not form.q.errors else "validate invalid")}}
+        {{ form.q.label }}
+
+        <!-- Submit button -->
+        <button type="submit" class="btn">
+            <i class="material-icons">send</i>
+        </button>
+    </div>
+</form>
+{% endmacro %}

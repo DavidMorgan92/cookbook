@@ -5,7 +5,7 @@ from wtforms import StringField, FieldList, IntegerRangeField, IntegerField, Tex
 class EditForm(FlaskForm):
     name = StringField("Name", validators=[
         validators.DataRequired(),
-        validators.length(max=50)])
+        validators.Length(max=50)])
 
     description = TextAreaField("Description", validators=[
         validators.DataRequired(),
