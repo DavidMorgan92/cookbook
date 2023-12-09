@@ -8,6 +8,7 @@ import routes.account.views as account_views
 import routes.profile.views as profile_views
 import routes.favourites.views as favourites_views
 import field_list_extensions
+import session
 
 # Initialize environment variables
 try:
@@ -32,34 +33,55 @@ csrf.init_app(app)
 mongo.initialize(app)
 
 
+# Provide session functions to all view templates
+@app.context_processor
+def session_context_processor():
+    """Provides the is_logged_in function to all view templates."""
+
+    return {
+        "is_logged_in": session.is_logged_in
+    }
+
+
 # Register home view
 @app.route("/")
 def home():
+    """View func to display the home page."""
+
     return render_template("home.html")
 
 
 # Register user views
-app.add_url_rule("/user/register", "user_register", view_func=user_views.register)
+app.add_url_rule("/user/register", "user_register",
+                 view_func=user_views.register)
 app.add_url_rule("/user/login", "user_login", view_func=user_views.login)
 app.add_url_rule("/user/logout", "user_logout", view_func=user_views.logout)
 
 # Register recipe views
 app.add_url_rule("/recipes", "recipes_index", view_func=recipes_views.index)
-app.add_url_rule("/recipes/<id>", "recipes_details", view_func=recipes_views.details)
-app.add_url_rule("/recipes/create", "recipes_create", view_func=recipes_views.create)
-app.add_url_rule("/recipes/edit/<id>", "recipes_edit", view_func=recipes_views.edit)
-app.add_url_rule("/recipes/edit_image/<id>", "recipes_edit_image", view_func=recipes_views.edit_image)
-app.add_url_rule("/recipes/delete/<id>", "recipes_delete", view_func=recipes_views.delete)
-app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite", view_func=recipes_views.favourite)
+app.add_url_rule("/recipes/<id>", "recipes_details",
+                 view_func=recipes_views.details)
+app.add_url_rule("/recipes/create", "recipes_create",
+                 view_func=recipes_views.create)
+app.add_url_rule("/recipes/edit/<id>", "recipes_edit",
+                 view_func=recipes_views.edit)
+app.add_url_rule("/recipes/edit_image/<id>",
+                 "recipes_edit_image", view_func=recipes_views.edit_image)
+app.add_url_rule("/recipes/delete/<id>", "recipes_delete",
+                 view_func=recipes_views.delete)
+app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite",
+                 view_func=recipes_views.favourite)
 
 # Register account views
 app.add_url_rule("/account", "account_index", view_func=account_views.index)
 
 # Register profile views
-app.add_url_rule("/profile/<id>", "profile_index", view_func=profile_views.index)
+app.add_url_rule("/profile/<id>", "profile_index",
+                 view_func=profile_views.index)
 
 # Register favourites views
-app.add_url_rule("/favourites", "favourites_index", view_func=favourites_views.index)
+app.add_url_rule("/favourites", "favourites_index",
+                 view_func=favourites_views.index)
 
 if __name__ == "__main__":
     host = "0.0.0.0"

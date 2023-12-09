@@ -20,7 +20,7 @@
                 <a href="/" class="brand-logo">Cook Book</a>
                 <a href="#" data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    {% if session.user %}
+                    {% if is_logged_in() %}
                     <li><a href="{{ url_for('favourites_index') }}">Favourite Recipes</a></li>
                     <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
                     <li><a href="{{ url_for('account_index') }}">My Account</a></li>
@@ -35,7 +35,7 @@
 
         <!-- Mobile side-nav menu -->
         <ul class="sidenav" id="mobile-sidenav">
-            {% if session.user %}
+            {% if is_logged_in() %}
             <li><a href="{{ url_for('favourites_index') }}">Favourite Recipes</a></li>
             <li><a href="{{ url_for('recipes_index') }}">My Recipes</a></li>
             <li><a href="{{ url_for('account_index') }}">My Account</a></li>

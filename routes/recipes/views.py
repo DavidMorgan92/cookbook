@@ -36,7 +36,10 @@ def details(id):
     if recipe == None:
         abort(404)
 
-    # Get user data if user is logged in
+    # Default is_favourite to False so when an anonymous user tries to select it they will be taken to the login page
+    is_favourite = False
+
+    # Get whether the recipe is a favourite of the user's
     if is_logged_in():
         user = get_user_by_id(logged_in_user_id())
         is_favourite = ObjectId(id) in user["favourites"]
@@ -233,7 +236,7 @@ def favourite(id):
         case "on":
             # Add the recipe to the logged in user's favourites
             favourite_recipe(logged_in_user_id(), id)
-            
+
             # Flash a success message
             flash("Added to favourites")
 
