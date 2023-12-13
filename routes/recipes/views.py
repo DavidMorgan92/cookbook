@@ -1,10 +1,11 @@
 from flask import redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name, insert_comment
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
+from routes.recipes.comment_form import CommentForm
 from session import is_logged_in, logged_in_user_id
 
 
@@ -44,8 +45,10 @@ def details(id):
         user = get_user_by_id(logged_in_user_id())
         is_favourite = ObjectId(id) in user["favourites"]
 
+    comment_form = CommentForm()
+
     # Render the details template with the recipe
-    return render_template("recipes/details.html", recipe=recipe, is_favourite=is_favourite)
+    return render_template("recipes/details.html", recipe=recipe, is_favourite=is_favourite, comment_form=comment_form)
 
 
 details.required_methods = ["GET"]
@@ -269,3 +272,20 @@ def favourites():
 
 
 favourites.required_methods = ["GET"]
+
+
+@authorize
+def comment(id):
+    """View func to submit a comment to a recipe."""
+
+    comment_form = CommentForm()
+
+    if comment_form.validate():
+        insert_comment(id, logged_in_user_id(), comment_form.text.data)
+
+        flash("Comment saved")
+
+    return redirect(url_for("recipes_details", id=id))
+
+
+comment.required_methods = ["POST"]

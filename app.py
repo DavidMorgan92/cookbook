@@ -69,6 +69,8 @@ app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite",
                  view_func=recipes_views.favourite)
 app.add_url_rule("/recipes/favourites", "recipes_favourites",
                  view_func=recipes_views.favourites)
+app.add_url_rule("/recipes/comment/<id>", "recipes_comment",
+                 view_func=recipes_views.comment)
 
 # Register account views
 app.add_url_rule("/account", "account_index", view_func=account_views.index)

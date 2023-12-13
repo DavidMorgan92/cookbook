@@ -79,10 +79,12 @@
 <div class="row card-panel">
     {% if is_logged_in() %}
     <!-- Comment form -->
-    <form action="">
+    <form action="{{ url_for('recipes_comment', id=recipe._id) }}" method="post">
+        {{ comment_form.csrf_token }}
         <div class="input-field d-flex">
-            <input type="text" name="text" id="text" class="validate" required maxlength="50">
-            <label for="text">Leave a comment</label>
+            {{ comment_form.text(class_ = "validate character-counter" if not comment_form.text.errors else "validate
+            invalid character-counter", data_length=200) }}
+            {{ comment_form.text.label }}
 
             <button type="submit" class="btn">
                 <i class="material-icons">send</i>
@@ -91,7 +93,8 @@
     </form>
     {% else %}
     <!-- Link to login with redirect URL back to this page -->
-    <a href="{{ url_for('user_login', redirect_url=url_for(request.endpoint, **request.view_args)) }}">Log in to leave a comment</a>
+    <a href="{{ url_for('user_login', redirect_url=url_for(request.endpoint, **request.view_args)) }}">Log in to leave a
+        comment</a>
     {% endif %}
 </div>
 
@@ -99,7 +102,8 @@
 {% for comment in recipe.comments %}
 <div class="row card-panel">
     <div class="col s6">
-        <a href="{{ url_for('profile_index', id=comment.creator_id) }}" class="small-text">{{ comment.creator.name }}</a>
+        <a href="{{ url_for('profile_index', id=comment.creator_id) }}" class="small-text">{{ comment.creator.name
+            }}</a>
     </div>
     <div class="col s6">
         <span class="small-text right">{{ comment.created_at.strftime("%m/%d/%Y %H:%M:%S") }}</span>

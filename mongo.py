@@ -1,5 +1,6 @@
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from datetime import datetime, timezone
 
 mongo = PyMongo()
 
@@ -120,6 +121,20 @@ def insert_recipe(recipe):
     """Insert a new recipe record."""
 
     return mongo.db.recipes.insert_one(recipe)
+
+
+def insert_comment(recipe_id, creator_id, text):
+    """Insert a new comment to a recipe."""
+
+    return mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+        "$push": {
+            "comments": {
+                "created_at": datetime.now(timezone.utc),
+                "created_by": ObjectId(creator_id),
+                "text": text
+            }
+        }
+    })
 
 
 def update_recipe(id, update):

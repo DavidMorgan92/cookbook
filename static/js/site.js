@@ -5,6 +5,11 @@ $(document).ready(function () {
     // Initialize character counters
     $('.character-counter').characterCounter();
 
+    // Flex box input fields should have their character counter spans moved outside the input field div
+    $('.input-field.d-flex').each(function () {
+        $(this).after($(this).children('span.character-counter'));
+    });
+
     // Initialize logout nav menu buttons to submit the hidden logout form
     $('.logout-button').on('click', function () {
         $("#logout-form").submit();
