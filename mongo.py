@@ -82,23 +82,28 @@ def get_recipe_by_id_with_comment_creator_names(id):
         {
             "$set": {
                 "comments": {
-                    "$map": {
-                        "input": "$comments",
-                        "in": {
-                            "$mergeObjects": [
-                                "$$this",
-                                {
-                                    "creator": {
-                                        "$arrayElemAt": [
-                                            "$comment_creators",
-                                            {
-                                                "$indexOfArray": ["$comment_creators._id", "$$this.creator_id"]
+                    "$sortArray": {
+                        "input": {
+                            "$map": {
+                                "input": "$comments",
+                                "in": {
+                                    "$mergeObjects": [
+                                        "$$this",
+                                        {
+                                            "creator": {
+                                                "$arrayElemAt": [
+                                                    "$comment_creators",
+                                                    {
+                                                        "$indexOfArray": ["$comment_creators._id", "$$this.creator_id"]
+                                                    }
+                                                ]
                                             }
-                                        ]
-                                    }
+                                        }
+                                    ]
                                 }
-                            ]
-                        }
+                            }
+                        },
+                        "sortBy": {"created_at": -1}
                     }
                 }
             }
