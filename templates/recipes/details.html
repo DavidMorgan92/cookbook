@@ -70,8 +70,32 @@
     </div>
 </div>
 
-<h6>Comments</h6>
+<h5>Comments</h5>
 
+{% if recipe.comments|length == 0 %}
+<h6 class="center">This recipe has no comments. Be the first!</h6>
+{% endif %}
+
+<div class="row card-panel">
+    {% if is_logged_in() %}
+    <!-- Comment form -->
+    <form action="">
+        <div class="input-field d-flex">
+            <input type="text" name="text" id="text" class="validate" required maxlength="50">
+            <label for="text">Leave a comment</label>
+
+            <button type="submit" class="btn">
+                <i class="material-icons">send</i>
+            </button>
+        </div>
+    </form>
+    {% else %}
+    <!-- Link to login with redirect URL back to this page -->
+    <a href="{{ url_for('user_login', redirect_url=url_for(request.endpoint, **request.view_args)) }}">Log in to leave a comment</a>
+    {% endif %}
+</div>
+
+<!-- Comments -->
 {% for comment in recipe.comments %}
 <div class="row card-panel">
     <div class="col s6">
