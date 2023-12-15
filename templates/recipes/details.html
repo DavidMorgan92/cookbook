@@ -19,7 +19,7 @@
     <div class="col s12 right-align">
         {% if is_favourite %}
         <!-- Remove from favourites action -->
-        <form action="{{ url_for('recipes_favourite', id=recipe._id, set='off') }}" method="post">
+        <form class="d-inline" action="{{ url_for('recipes_favourite', id=recipe._id, set='off') }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn">
                 <i class="material-icons right">favorite_border</i>
@@ -28,11 +28,31 @@
         </form>
         {% else %}
         <!-- Add to favourites action -->
-        <form action="{{ url_for('recipes_favourite', id=recipe._id, set='on') }}" method="post">
+        <form class="d-inline" action="{{ url_for('recipes_favourite', id=recipe._id, set='on') }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn">
                 <i class="material-icons right">favorite</i>
                 Favourite
+            </button>
+        </form>
+        {% endif %}
+
+        {% if is_liked %}
+        <!-- Remove from likes action -->
+        <form class="d-inline" action="{{ url_for('recipes_like', id=recipe._id, set='off') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn">
+                <i class="material-icons right">thumb_down</i>
+                Unlike
+            </button>
+        </form>
+        {% else %}
+        <!-- Add to likes action -->
+        <form class="d-inline" action="{{ url_for('recipes_like', id=recipe._id, set='on') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn">
+                <i class="material-icons right">thumb_up</i>
+                Like
             </button>
         </form>
         {% endif %}

@@ -29,10 +29,10 @@
                     {{ recipe.time_minutes }}m
                 </div>
 
-                <!-- Rating icon -->
+                <!-- Likes icon -->
                 <div class="col s4">
-                    <i class="material-icons left">star</i>
-                    {{ recipe.rating }}
+                    <i class="material-icons left">thumb_up</i>
+                    {{ recipe.liked_by_ids|length }}
                 </div>
             </div>
             {% if creator_name %}

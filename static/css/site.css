@@ -28,6 +28,10 @@ nav {
     display: flex;
 }
 
+.d-inline {
+    display: inline;
+}
+
 .small-text {
     font-size: small;
 }

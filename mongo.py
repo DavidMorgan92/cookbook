@@ -149,6 +149,18 @@ def delete_recipe(id):
     return mongo.db.recipes.delete_one({"_id": ObjectId(id)})
 
 
+def like_recipe(user_id, recipe_id):
+    """Add a user's ID to a recipe's likes array."""
+
+    return mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$addToSet": {"liked_by_ids": ObjectId(user_id)}})
+
+
+def unlike_recipe(user_id, recipe_id):
+    """Remove a user's ID from a recipe's likes array."""
+
+    return mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$pull": {"liked_by_ids": ObjectId(user_id)}})
+
+
 def favourite_recipe(user_id, recipe_id):
     """Add a recipe to the user's favourites array."""
 

@@ -1,7 +1,7 @@
 from flask import redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name, insert_comment
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name, insert_comment, like_recipe, unlike_recipe
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
@@ -40,15 +40,20 @@ def details(id):
     # Default is_favourite to False so when an anonymous user tries to select it they will be taken to the login page
     is_favourite = False
 
+    # Default is_liked to False
+    is_liked = False
+
     # Get whether the recipe is a favourite of the user's
     if is_logged_in():
-        user = get_user_by_id(logged_in_user_id())
+        user_id = logged_in_user_id()
+        user = get_user_by_id(user_id)
         is_favourite = ObjectId(id) in user["favourites"]
+        is_liked = ObjectId(user_id) in recipe["liked_by_ids"]
 
     comment_form = CommentForm()
 
     # Render the details template with the recipe
-    return render_template("recipes/details.html", recipe=recipe, is_favourite=is_favourite, comment_form=comment_form)
+    return render_template("recipes/details.html", recipe=recipe, is_favourite=is_favourite, is_liked=is_liked, comment_form=comment_form)
 
 
 details.required_methods = ["GET"]
@@ -85,16 +90,8 @@ create.required_methods = ["POST"]
 def edit(id):
     """View func to edit a recipe belonging to the logged in user."""
 
-    # Raise 404 if the ID is invalid
-    if not ObjectId.is_valid(id):
-        abort(404)
-
-    # Get a recipe belonging to the logged in user with the given ID
-    recipe = get_recipe_by_id(id)
-
-    # Raise 404 if the recipe is not found
-    if recipe == None:
-        abort(404)
+    # Get recipe, raise 404 if it doesn't exist
+    recipe = get_recipe(id)
 
     # Create the forms
     form = EditForm()
@@ -188,16 +185,8 @@ edit_image.required_methods = ["POST"]
 def delete(id):
     """View func to delete a recipe belonging to the logged in user."""
 
-    # Raise 404 if the ID is invalid
-    if not ObjectId.is_valid(id):
-        abort(404)
-
-    # Get a recipe belonging to the logged in user with the given ID
-    recipe = get_recipe_by_id(id)
-
-    # Raise 404 if the recipe is not found
-    if recipe == None:
-        abort(404)
+    # Get recipe, abort 404 if it doesn't exist
+    recipe = get_recipe(id)
 
     # If the form is posted
     if request.method == "POST":
@@ -221,16 +210,8 @@ delete.required_methods = ["GET", "POST"]
 def favourite(id):
     """Add a recipe to the logged in user's favourites."""
 
-    # Raise 404 if the ID is invalid
-    if not ObjectId.is_valid(id):
-        abort(404)
-
-    # Get a recipe belonging to the logged in user with the given ID
-    recipe = get_recipe_by_id(id)
-
-    # Raise 404 if the recipe is not found
-    if recipe == None:
-        abort(404)
+    # Check recipe exists, abort 404 if not
+    get_recipe(id)
 
     # Get the set query parameter
     set_flag = request.args.get("set", None)
@@ -255,6 +236,38 @@ def favourite(id):
 
 
 favourite.required_methods = ["POST"]
+
+
+@authorize
+def like(id):
+    """Add the logged in user to the recipe's likes array."""
+
+    # Check recipe exists, abort 404 if not
+    get_recipe(id)
+
+    # Get the set query parameter
+    set_flag = request.args.get("set", None)
+
+    match set_flag:
+        case "on":
+            # Add the user ID to the recipe's likes array
+            like_recipe(logged_in_user_id(), id)
+
+            # Flash a success message
+            flash("Added to likes")
+
+        case "off":
+            # Remove the user ID from the recipe's likes array
+            unlike_recipe(logged_in_user_id(), id)
+
+            # Flash a success message
+            flash("Removed from likes")
+
+    # Redirect to the recipe details page
+    return redirect(url_for("recipes_details", id=id))
+
+
+like.required_methods = ["POST"]
 
 
 @authorize
@@ -289,3 +302,20 @@ def comment(id):
 
 
 comment.required_methods = ["POST"]
+
+
+def get_recipe(id):
+    """Get a recipe by its ID or raise a 404 error if it doesn't."""
+
+    # Raise 404 if the ID is invalid
+    if not ObjectId.is_valid(id):
+        abort(404)
+
+    # Get a recipe belonging to the logged in user with the given ID
+    recipe = get_recipe_by_id(id)
+
+    # Raise 404 if the recipe is not found
+    if recipe == None:
+        abort(404)
+
+    return recipe

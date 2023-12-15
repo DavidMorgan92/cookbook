@@ -67,6 +67,8 @@ app.add_url_rule("/recipes/delete/<id>", "recipes_delete",
                  view_func=recipes_views.delete)
 app.add_url_rule("/recipes/favourite/<id>", "recipes_favourite",
                  view_func=recipes_views.favourite)
+app.add_url_rule("/recipes/like/<id>", "recipes_like",
+                 view_func=recipes_views.like)
 app.add_url_rule("/recipes/favourites", "recipes_favourites",
                  view_func=recipes_views.favourites)
 app.add_url_rule("/recipes/comment/<id>", "recipes_comment",
