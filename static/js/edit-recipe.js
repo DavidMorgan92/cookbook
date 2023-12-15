@@ -12,8 +12,8 @@ $(document).ready(function () {
     setRangeLabel('Serves to', '#serves_to');
 
     // Setup add/remove buttons
-    setupAddRemoveButtons('#ingredients', '#ingredient-template', $('#ingredients .input-field').last(), () => setFieldListLabels('#ingredients', 'ingredients', 'Ingredient'));
-    setupAddRemoveButtons('#steps', '#step-template', $('#steps .input-field').last(), () => setFieldListLabels('#steps', 'steps', 'Step'));
+    setupAddRemoveButtons('#ingredients', '#ingredient-template', () => setFieldListLabels('#ingredients', 'ingredients', 'Ingredient'));
+    setupAddRemoveButtons('#steps', '#step-template', () => setFieldListLabels('#steps', 'steps', 'Step'));
 
     // Update serves_from and serves_to labels when the values change
     $('#serves_from').on('change', () => setRangeLabel('Serves from', '#serves_from'));
@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
 });
 
-function setupAddRemoveButtons(sectionId, templateId, insertAfterSelector, callback) {
+function setupAddRemoveButtons(sectionId, templateId, callback) {
     // On add button clicked
     $(sectionId).on('click', '.add-btn', function () {
         // Clone the template
@@ -47,8 +47,8 @@ function setupAddRemoveButtons(sectionId, templateId, insertAfterSelector, callb
             .addClass('d-flex')
             .removeAttr('id');
 
-        // Insert the template after the last ingredient
-        template.insertAfter(insertAfterSelector);
+        // Append the template to the controls div
+        template.appendTo($(sectionId).children(".controls"));
 
         // Invoke callback
         callback();

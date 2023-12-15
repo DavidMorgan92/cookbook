@@ -11,8 +11,8 @@
         <!-- Edit image button -->
         <button id="edit-image-button" type="button" class="btn">Change image</button>
 
-        <!-- Image validation errors -->
         <div class="col s12">
+            <!-- Image validation errors -->
             {% if image_form.image.errors %}
             <ul class="red-text">
                 {% for error in image_form.image.errors %}
@@ -70,8 +70,8 @@
                     character-counter", data_length="50") }}
                     {{ form.name.label }}
 
-                    <!-- Name validation errors -->
                     {% if form.name.errors %}
+                    <!-- Name validation errors -->
                     <ul class="red-text">
                         {% for error in form.name.errors %}
                         <li>{{ error }}</li>
@@ -87,8 +87,8 @@
                     {{ form.category(class_="validate" if not form.category.errors else "validate invalid") }}
                     {{ form.category.label }}
 
-                    <!-- Category validation errors -->
                     {% if form.category.errors %}
+                    <!-- Category validation errors -->
                     <ul class="red-text">
                         {% for error in form.category.errors %}
                         <li>{{ error }}</li>
@@ -106,8 +106,8 @@
                     "validate invalid character-counter materialize-textarea", data_length="500") }}
                     {{ form.description.label }}
 
-                    <!-- Description validation errors -->
                     {% if form.description.errors %}
+                    <!-- Description validation errors -->
                     <ul class="red-text">
                         {% for error in form.description.errors %}
                         <li>{{ error }}</li>
@@ -123,8 +123,8 @@
                     {{ form.time(class_="validate" if not form.time.errors else "validate invalid") }}
                     {{ form.time.label }}
 
-                    <!-- Time validation errors -->
                     {% if form.time.errors %}
+                    <!-- Time validation errors -->
                     <ul class="red-text">
                         {% for error in form.time.errors %}
                         <li>{{ error }}</li>
@@ -142,8 +142,8 @@
                         {{ form.serves_from(class_="validate" if not form.serves_from.errors else "validate invalid") }}
                     </p>
 
-                    <!-- Serves from validation errors -->
                     {% if form.serves_from.errors %}
+                    <!-- Serves from validation errors -->
                     <ul class="red-text">
                         {% for error in form.serves_from.errors %}
                         <li>{{ error }}</li>
@@ -159,8 +159,8 @@
                         {{ form.serves_to(class_="validate" if not form.serves_to.errors else "validate invalid") }}
                     </p>
 
-                    <!-- Serves to validation errors -->
                     {% if form.serves_to.errors %}
+                    <!-- Serves to validation errors -->
                     <ul class="red-text">
                         {% for error in form.serves_to.errors %}
                         <li>{{ error }}</li>
@@ -174,28 +174,30 @@
 
             <!-- Ingredients -->
             <div id="ingredients" class="row">
-                {% for ingredient in form.ingredients %}
-                <div class="input-field col s12 d-flex">
-                    {{ ingredient(class_="validate" if not ingredient.errors else "validate invalid") }}
-                    {{ ingredient.label("Ingredient " + loop.index|string) }}
-
-                    <!-- Remove ingredient button -->
-                    <button class="btn red remove-btn" type="button">
-                        <i class="material-icons">delete</i>
-                    </button>
+                <div class="controls">
+                    {% for ingredient in form.ingredients %}
+                    <div class="input-field col s12 d-flex">
+                        {{ ingredient(class_="validate" if not ingredient.errors else "validate invalid") }}
+                        {{ ingredient.label("Ingredient " + loop.index|string) }}
+    
+                        <!-- Remove ingredient button -->
+                        <button class="btn red remove-btn" type="button">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+    
+                    {% if ingredient.errors %}
+                    <!-- Ingredient validation errors -->
+                    <div class="col s12">
+                        <ul class="red-text">
+                            {% for error in ingredient.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
-
-                <!-- Ingredient validation errors -->
-                {% if ingredient.errors %}
-                <div class="col s12">
-                    <ul class="red-text">
-                        {% for error in ingredient.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-                {% endfor %}
 
                 <!-- Add ingredient button -->
                 <div class="col s12">
@@ -207,28 +209,30 @@
 
             <!-- Steps -->
             <div id="steps" class="row">
-                {% for step in form.steps %}
-                <div class="input-field col s12 d-flex">
-                    {{ step(class_="validate" if not step.errors else "validate invalid") }}
-                    {{ step.label("Step " + loop.index|string) }}
-
-                    <!-- Remove step button -->
-                    <button class="btn red remove-btn" type="button">
-                        <i class="material-icons">delete</i>
-                    </button>
+                <div class="controls">
+                    {% for step in form.steps %}
+                    <div class="input-field col s12 d-flex">
+                        {{ step(class_="validate" if not step.errors else "validate invalid") }}
+                        {{ step.label("Step " + loop.index|string) }}
+    
+                        <!-- Remove step button -->
+                        <button class="btn red remove-btn" type="button">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+    
+                    <!-- Step validation errors -->
+                    {% if step.errors %}
+                    <div class="col s12">
+                        <ul class="red-text">
+                            {% for error in step.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
-
-                <!-- Step validation errors -->
-                {% if step.errors %}
-                <div class="col s12">
-                    <ul class="red-text">
-                        {% for error in step.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-                {% endfor %}
 
                 <!-- Add step button -->
                 <div class="col s12">
