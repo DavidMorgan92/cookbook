@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from mongo import search_recipes
+from mongo import search_recipes, get_popular_recipes
 from routes.home.search_form import SearchForm
 
 
@@ -8,8 +8,10 @@ def index():
 
     form = SearchForm(meta={"csrf": False})
 
+    popular_recipes = get_popular_recipes(10)
+
     # Show the home page
-    return render_template("home/index.html", form=form)
+    return render_template("home/index.html", form=form, popular_recipes=popular_recipes)
 
 
 index.required_methods = ["GET"]

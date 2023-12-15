@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% import "home/search_form.html" as search_form %}
+{% import "recipes/recipe_card.html" as recipe_card %}
 
 {% block content %}
 
@@ -19,6 +20,10 @@
 <!-- Popular recipes -->
 <section id="popular-recipes">
     <h2>Popular recipes</h2>
+
+    {% for recipe in popular_recipes %}
+    {{ recipe_card.render(recipe, creator_name=recipe.creator.name, can_edit=False) }}
+    {% endfor %}
 </section>
 
 <!-- Recipes by category -->

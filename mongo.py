@@ -243,6 +243,23 @@ def search_recipes(query):
     ]))
 
 
+def get_popular_recipes(limit):
+    """Return a list of the most popular recipes."""
+
+    return list(mongo.db.recipes.aggregate([
+        {
+            "$addFields": {"number_of_likes": {"$size": "$liked_by_ids"}}
+        },
+        {
+            "$sort": {"number_of_likes": -1}
+        },
+        {
+            "$limit": limit
+        },
+        *add_creator_name()
+    ]))
+
+
 def add_creator_name():
     """Return elements of an aggregate pipeline that will add the recipe creator's name to the returned objects."""
 
