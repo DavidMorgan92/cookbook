@@ -3,7 +3,7 @@
     <div class="input-field d-flex">
         <!-- Search query field -->
         <i class="material-icons prefix">search</i>
-        {{ form.q(class_="validate" if not form.q.errors else "validate invalid")}}
+        {{ form.q(class_="validate" if not form.q.errors else "validate invalid", autofocus=True)}}
         {{ form.q.label }}
 
         <!-- Submit button -->
