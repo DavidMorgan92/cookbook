@@ -32,16 +32,8 @@ csrf.init_app(app)
 # Initialize MongoDb connection
 mongo.initialize(app)
 
-
-# Provide session functions to all view templates
-@app.context_processor
-def session_context_processor():
-    """Provides the is_logged_in function to all view templates."""
-
-    return {
-        "is_logged_in": session.is_logged_in
-    }
-
+# Provide session data getters to all view templates
+app.context_processor(session.context_processor)
 
 # Register home views
 app.add_url_rule("/", "home_index", view_func=home_views.index)
@@ -76,6 +68,8 @@ app.add_url_rule("/recipes/comment/<id>", "recipes_comment",
 
 # Register account views
 app.add_url_rule("/account", "account_index", view_func=account_views.index)
+app.add_url_rule("/account/change_password", "account_change_password",
+                 view_func=account_views.change_password)
 
 # Register profile views
 app.add_url_rule("/profile/<id>", "profile_index",

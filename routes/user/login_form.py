@@ -1,16 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, validators
-import re
+from routes.user.form_fields import UsernameField, PasswordField
 
 
 class LoginForm(FlaskForm):
     """Login form model."""
 
-    username = StringField("Username", validators=[
-        validators.DataRequired(),
-        validators.Length(min=5, max=20),
-        validators.Regexp("^[a-z0-9]{5,20}$", flags=re.IGNORECASE, message="Use only letters and numbers with no spaces")])
+    username = UsernameField()
 
-    password = PasswordField("Password", validators=[
-        validators.DataRequired(),
-        validators.Length(min=5)])
+    password = PasswordField()

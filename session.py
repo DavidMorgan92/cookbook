@@ -19,6 +19,16 @@ def logged_in_user_name():
     return session["user"]["name"]
 
 
+def context_processor():
+    """Provides session data getters to all view templates."""
+
+    return {
+        "is_logged_in": is_logged_in,
+        "logged_in_user_name": logged_in_user_name,
+        "logged_in_user_id": logged_in_user_id
+    }
+
+
 def login(id, name):
     "Stores the user data in the session."
 

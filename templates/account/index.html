@@ -2,10 +2,14 @@
 
 {% block content %}
 
-<h3 class="center">Your account</h3>
+<h3 class="center">Welcome {{ logged_in_user_name() }}</h3>
 
-<a href="{{ url_for('profile_index', id=id) }}" class="btn">
+<a href="{{ url_for('profile_index', id=logged_in_user_id()) }}" class="btn">
     View your public profile
+</a>
+
+<a href="{{ url_for('account_change_password') }}" class="btn">
+    Change your password
 </a>
 
 {% endblock %}

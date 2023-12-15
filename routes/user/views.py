@@ -1,6 +1,5 @@
 from flask import request, render_template, redirect, url_for, flash
-from werkzeug.security import generate_password_hash, check_password_hash
-from mongo import get_user_by_name, insert_user
+from mongo import get_user_by_name_and_password, insert_user, user_exists
 from routes.user.login_form import LoginForm
 from routes.user.register_form import RegisterForm
 from session import logout as logout_of_session, login as login_to_session
@@ -13,24 +12,16 @@ def register():
 
     # If the form is posted and valid
     if form.validate_on_submit():
-        # See if there is already a user with this name
-        user = get_user_by_name(form.username.data)
-
-        if user != None:
+        if user_exists(form.username.data):
             # Flash a message if the username is taken
             flash("Username is already taken")
         else:
-            # Create the user record
-            user = {
-                "name": form.username.data,
-                "password_hash": generate_password_hash(form.password.data)
-            }
-
-            # Store the user record in the database
-            insert_result = insert_user(user)
+            # Create a user record in the database
+            insert_result = insert_user(form.username.data, form.password.data)
 
             # Store the user ID in the session
-            login_to_session(str(insert_result.inserted_id), user["name"])
+            login_to_session(str(insert_result.inserted_id),
+                             form.username.data)
 
             # Flash successful registered message
             flash(f"Welcome {form.username.data}")
@@ -56,10 +47,11 @@ def login():
     # If the form is posted and valid
     if form.validate_on_submit():
         # Get the user with the given username
-        user = get_user_by_name(form.username.data)
+        user = get_user_by_name_and_password(
+            form.username.data, form.password.data)
 
         # If the username or password is incorrect
-        if user == None or not check_password_hash(user["password_hash"], form.password.data):
+        if user == None:
             # Flash an error message
             flash("Username or password is incorrect")
         else:
