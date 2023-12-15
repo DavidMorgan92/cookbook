@@ -64,7 +64,6 @@ def create():
     # Create a default recipe
     recipe = {
         "name": "New recipe",
-        "category_id": None,
         "description": "",
         "time_minutes": 0,
         "serves": {
@@ -75,7 +74,8 @@ def create():
         "ingredients": [],
         "steps": [],
         "creator_id": ObjectId(logged_in_user_id()),
-        "comments": []
+        "comments": [],
+        "liked_by_ids": []
     }
 
     # Insert the new recipe into the database
@@ -115,8 +115,7 @@ def edit(id):
                 "to": form.serves_to.data
             },
             "ingredients": form.ingredients.data,
-            "steps": form.steps.data,
-            "comments": []
+            "steps": form.steps.data
         }
 
         # Update the recipe in the database
