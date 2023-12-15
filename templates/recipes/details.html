@@ -93,8 +93,9 @@
     </form>
     {% else %}
     <!-- Link to login with redirect URL back to this page -->
-    <a href="{{ url_for('user_login', redirect_url=url_for(request.endpoint, **request.view_args)) }}">Log in to leave a
-        comment</a>
+    <a href="{{ url_for('user_login', redirect_url=url_for(request.endpoint, **request.view_args)) }}">
+        Log in to leave a comment
+    </a>
     {% endif %}
 </div>
 
@@ -102,8 +103,9 @@
 {% for comment in recipe.comments %}
 <div class="row card-panel">
     <div class="col s6">
-        <a href="{{ url_for('profile_index', id=comment.creator_id) }}" class="small-text">{{ comment.creator.name
-            }}</a>
+        <a href="{{ url_for('profile_index', id=comment.creator_id) }}" class="small-text">
+            {{ comment.creator.name }}
+        </a>
     </div>
     <div class="col s6">
         <span class="small-text right">{{ comment.created_at.strftime("%m/%d/%Y %H:%M:%S") }}</span>

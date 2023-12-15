@@ -130,7 +130,7 @@ def insert_comment(recipe_id, creator_id, text):
         "$push": {
             "comments": {
                 "created_at": datetime.now(timezone.utc),
-                "created_by": ObjectId(creator_id),
+                "creator_id": ObjectId(creator_id),
                 "text": text
             }
         }
