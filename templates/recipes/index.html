@@ -25,7 +25,9 @@
 
     <!-- List of the logged in user's recipes -->
     {% for recipe in recipes %}
-    {{ recipe_card.render(recipe, can_edit=True) }}
+    <div class="col s12 m6 l4">
+        {{ recipe_card.render(recipe, can_edit=True) }}
+    </div>
     {% endfor %}
 </div>
 

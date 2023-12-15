@@ -45,3 +45,14 @@ nav {
     /* Push up remove-btn z-index so it's not blocked by the input label */
     z-index: 1;
 }
+
+.scroller {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+}
+
+.scroller .card {
+    flex-basis: 450px;
+    min-width: 200px;
+}

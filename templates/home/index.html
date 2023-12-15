@@ -21,9 +21,11 @@
 <section id="popular-recipes">
     <h2>Popular recipes</h2>
 
-    {% for recipe in popular_recipes %}
-    {{ recipe_card.render(recipe, creator_name=recipe.creator.name, can_edit=False) }}
-    {% endfor %}
+    <div class="scroller">
+        {% for recipe in popular_recipes %}
+        {{ recipe_card.render(recipe, creator_name=recipe.creator.name, can_edit=False) }}
+        {% endfor %}
+    </div>
 </section>
 
 <!-- Recipes by category -->

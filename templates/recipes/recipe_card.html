@@ -2,72 +2,70 @@
 {% import "recipes/recipe_serves.html" as recipe_serves %}
 
 {% macro render(recipe, creator_name, can_edit) %}
-<div class="col s12 m12 l6">
-    <div class="card left-align">
-        <!-- Recipe image -->
-        <div class="card-image">
-            {{ recipe_image.render(recipe.image_data) }}
-        </div>
+<div class="card left-align">
+    <!-- Recipe image -->
+    <div class="card-image">
+        {{ recipe_image.render(recipe.image_data) }}
+    </div>
 
-        <!-- Card content -->
-        <div class="card-content">
-            <!-- Recipe name -->
-            <span class="card-title activator grey-text text-darken-4">
-                {{ recipe.name }}
-                <i class="material-icons right">more_vert</i>
-            </span>
-            <div class="row">
-                <!-- Serves icon -->
-                <div class="col s4">
-                    <i class="material-icons left">person</i>
-                    {{ recipe_serves.render(recipe) }}
-                </div>
-
-                <!-- Time icon -->
-                <div class="col s4">
-                    <i class="material-icons left">hourglass_empty</i>
-                    {{ recipe.time_minutes }}m
-                </div>
-
-                <!-- Likes icon -->
-                <div class="col s4">
-                    <i class="material-icons left">thumb_up</i>
-                    {{ recipe.liked_by_ids|length }}
-                </div>
+    <!-- Card content -->
+    <div class="card-content">
+        <!-- Recipe name -->
+        <span class="card-title activator grey-text text-darken-4">
+            {{ recipe.name }}
+            <i class="material-icons right">more_vert</i>
+        </span>
+        <div class="row">
+            <!-- Serves icon -->
+            <div class="col s12 m4">
+                <i class="material-icons left">person</i>
+                {{ recipe_serves.render(recipe) }}
             </div>
-            {% if creator_name %}
-            <div class="row">
-                <div class="col s12 right-align">
-                    <!-- Link to creator's profile-->
-                    <a href="{{ url_for('profile_index', id=recipe.creator_id) }}" class="small-text italicize">
-                        <i class="material-icons right">person_outline</i>
-                        {{ creator_name }}
-                    </a>
-                </div>
+
+            <!-- Time icon -->
+            <div class="col s12 m4">
+                <i class="material-icons left">hourglass_empty</i>
+                {{ recipe.time_minutes }}m
             </div>
-            {% endif %}
-        </div>
-        
-        <!-- Card reveal details -->
-        <div class="card-reveal">
-            <!-- Recipe name -->
-            <span class="card-title grey-text text-darken-4">
-                {{ recipe.name }}
-                <i class="material-icons right">close</i>
-            </span>
 
-            <!-- Recipe description -->
-            <p>{{ recipe.description }}</p>
+            <!-- Likes icon -->
+            <div class="col s12 m4">
+                <i class="material-icons left">thumb_up</i>
+                {{ recipe.liked_by_ids|length }}
+            </div>
         </div>
+        {% if creator_name %}
+        <div class="row">
+            <div class="col s12 right-align">
+                <!-- Link to creator's profile-->
+                <a href="{{ url_for('profile_index', id=recipe.creator_id) }}" class="small-text italicize">
+                    <i class="material-icons right">person_outline</i>
+                    {{ creator_name }}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Card reveal details -->
+    <div class="card-reveal">
+        <!-- Recipe name -->
+        <span class="card-title grey-text text-darken-4">
+            {{ recipe.name }}
+            <i class="material-icons right">close</i>
+        </span>
 
-        <!-- Action links -->
-        <div class="card-action">
-            <a href="{{ url_for('recipes_details', id=recipe._id)}}">Details</a>
-            {% if can_edit %}
-            <a href="{{ url_for('recipes_edit', id=recipe._id) }}">Edit</a>
-            <a href="{{ url_for('recipes_delete', id=recipe._id) }}">Delete</a>
-            {% endif %}
-        </div>
+        <!-- Recipe description -->
+        <p>{{ recipe.description }}</p>
+    </div>
+
+    <!-- Action links -->
+    <div class="card-action">
+        <a href="{{ url_for('recipes_details', id=recipe._id)}}">Details</a>
+        {% if can_edit %}
+        <a href="{{ url_for('recipes_edit', id=recipe._id) }}">Edit</a>
+        <a href="{{ url_for('recipes_delete', id=recipe._id) }}">Delete</a>
+        {% endif %}
     </div>
 </div>
 {% endmacro %}
