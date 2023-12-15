@@ -4,7 +4,7 @@
 <div class="row center">
     <!-- Recipe image -->
     <div class="col s12">
-        {{ recipe_image.render(recipe.image_data, "responsive-img") }} 
+        {{ recipe_image.render(recipe.image_data, "responsive-img") }}
     </div>
 
     <div class="col s12">
@@ -74,6 +74,23 @@
                     {% if form.name.errors %}
                     <ul class="red-text">
                         {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Category field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.category(class_="validate" if not form.category.errors else "validate invalid") }}
+                    {{ form.category.label }}
+
+                    <!-- Category validation errors -->
+                    {% if form.category.errors %}
+                    <ul class="red-text">
+                        {% for error in form.category.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>

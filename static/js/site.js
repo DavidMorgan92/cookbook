@@ -5,6 +5,9 @@ $(document).ready(function () {
     // Initialize character counters
     $('.character-counter').characterCounter();
 
+    // Initialize select inputs
+    $('select').formSelect();
+
     // Flex box input fields should have their character counter spans moved outside the input field div
     $('.input-field.d-flex').each(function () {
         $(this).after($(this).children('span.character-counter'));

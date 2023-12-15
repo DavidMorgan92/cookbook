@@ -1,7 +1,7 @@
 from flask import redirect, url_for, abort, render_template, request, flash
 from bson.objectid import ObjectId
 from base64 import b64encode
-from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name, insert_comment, like_recipe, unlike_recipe
+from mongo import get_recipes_by_creator_id, get_recipe_by_id, get_recipe_by_id_with_comment_creator_names, insert_recipe, update_recipe, delete_recipe, get_user_by_id, favourite_recipe, unfavourite_recipe, get_all_recipes_by_id_with_creator_name, insert_comment, like_recipe, unlike_recipe, get_categories
 from authorize import authorize
 from routes.recipes.edit_form import EditForm
 from routes.recipes.edit_image_form import EditImageForm
@@ -64,6 +64,7 @@ def create():
     # Create a default recipe
     recipe = {
         "name": "New recipe",
+        "category_id": None,
         "description": "",
         "time_minutes": 0,
         "serves": {
@@ -73,7 +74,8 @@ def create():
         "image_data": None,
         "ingredients": [],
         "steps": [],
-        "creator_id": ObjectId(logged_in_user_id())
+        "creator_id": ObjectId(logged_in_user_id()),
+        "comments": []
     }
 
     # Insert the new recipe into the database
@@ -97,11 +99,15 @@ def edit(id):
     form = EditForm()
     image_form = EditImageForm()
 
+    # Set form category options
+    form.category.choices = [(c["_id"], c["name"]) for c in get_categories()]
+
     # If the form is posted and valid
     if form.validate_on_submit():
         # Construct an update object with the form values
         update = {
             "name": form.name.data,
+            "category_id": ObjectId(form.category.data),
             "description": form.description.data,
             "time_minutes": form.time.data,
             "serves": {
@@ -109,7 +115,8 @@ def edit(id):
                 "to": form.serves_to.data
             },
             "ingredients": form.ingredients.data,
-            "steps": form.steps.data
+            "steps": form.steps.data,
+            "comments": []
         }
 
         # Update the recipe in the database

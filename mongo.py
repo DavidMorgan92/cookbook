@@ -260,6 +260,12 @@ def get_popular_recipes(limit):
     ]))
 
 
+def get_categories():
+    """Return all categories."""
+
+    return list(mongo.db.categories.find())
+
+
 def add_creator_name():
     """Return elements of an aggregate pipeline that will add the recipe creator's name to the returned objects."""
 

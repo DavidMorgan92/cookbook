@@ -1,11 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FieldList, IntegerRangeField, IntegerField, TextAreaField, validators, ValidationError
+from wtforms import StringField, SelectField, FieldList, IntegerRangeField, IntegerField, TextAreaField, validators, ValidationError
 
 
 class EditForm(FlaskForm):
     name = StringField("Name", validators=[
         validators.DataRequired(),
         validators.Length(max=50)])
+    
+    category = SelectField("Category")
 
     description = TextAreaField("Description", validators=[
         validators.DataRequired(),
