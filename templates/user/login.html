@@ -12,7 +12,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">account_circle</i>
-                {{ form.username(class_="validate" if not form.username.errors else "validate invalid") }}
+                {{ form.username(class_="validate" if not form.username.errors else "validate invalid", autofocus=True) }}
                 {{ form.username.label }}
 
                 <!-- Username validation errors -->
