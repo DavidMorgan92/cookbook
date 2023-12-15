@@ -74,7 +74,7 @@ def login():
                 return redirect(redirect_url)
 
             # Redirect to home page
-            return redirect(url_for("home"))
+            return redirect(url_for("home_index"))
 
     # Render the login template
     return render_template("user/login.html", form=form, redirect_url=redirect_url)
