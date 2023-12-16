@@ -38,6 +38,7 @@ app.context_processor(session.context_processor)
 # Register home views
 app.add_url_rule("/", "home_index", view_func=home_views.index)
 app.add_url_rule("/search", "home_search", view_func=home_views.search)
+app.add_url_rule("/contact", "home_contact", view_func=home_views.contact)
 
 # Register user views
 app.add_url_rule("/user/register", "user_register",

@@ -18,6 +18,6 @@ $(document).ready(function () {
 
     // Initialize logout nav menu buttons to submit the hidden logout form
     $('.logout-button').on('click', function () {
-        $("#logout-form").submit();
+        $('#logout-form').submit();
     });
 });

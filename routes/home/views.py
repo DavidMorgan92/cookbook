@@ -1,6 +1,7 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from mongo import search_recipes, get_popular_recipes
 from routes.home.search_form import SearchForm
+from routes.home.contact_form import ContactForm
 
 
 def index():
@@ -31,3 +32,19 @@ def search():
 
 
 search.required_methods = ["GET"]
+
+
+def contact():
+    """View func to show contact form."""
+
+    form = ContactForm()
+
+    if form.validate_on_submit():
+        flash("Message sent")
+
+        return redirect(url_for("home_contact"))
+
+    return render_template("home/contact.html", form=form)
+
+
+contact.required_methods = ["GET", "POST"]

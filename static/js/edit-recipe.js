@@ -48,7 +48,7 @@ function setupAddRemoveButtons(sectionId, templateId, callback) {
             .removeAttr('id');
 
         // Append the template to the controls div
-        template.appendTo($(sectionId).children(".controls"));
+        template.appendTo($(sectionId).children('.controls'));
 
         // Invoke callback
         callback();
