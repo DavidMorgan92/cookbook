@@ -67,9 +67,43 @@
             {% endwith %}
         </section>
 
+        <!-- Main content -->
         {% block content %}
         {% endblock %}
     </main>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row center">
+                <div class="col s12 m6">
+                    <a href="#" class="white-text">Contact Us</a>
+                </div>
+                <div class="col s12 m6">
+                    <a href="#attribution-modal" class="white-text modal-trigger">Content Attribution</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                &copy; 2023
+            </div>
+        </div>
+    </footer>
+
+    <div id="attribution-modal" class="modal">
+        <div class="modal-content">
+            <h4>Content Attribution</h4>
+            <h6>Favicon</h6>
+            <p>
+                <img src="{{ url_for('static', filename='favicon.png' )}}" alt="The website's favicon">
+                <br>
+                <a target="_blank" href="https://icons8.com/icon/2iMVPKuGY5aG/cooking-book">Recipe</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-close btn-flat">Close</a>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
