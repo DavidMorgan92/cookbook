@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash
 from mongo import search_recipes, get_popular_recipes
 from routes.home.search_form import SearchForm
 from routes.home.contact_form import ContactForm
+from send_email import send_message
 
 
 def index():
@@ -40,7 +41,9 @@ def contact():
     form = ContactForm()
 
     if form.validate_on_submit():
-        flash("Message sent")
+        result = send_message(form.name.data, form.email.data, form.message.data)
+
+        flash("Message sent") if result else flash("Failed to send message, please try again")
 
         return redirect(url_for("home_contact"))
 
