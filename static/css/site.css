@@ -15,6 +15,11 @@ nav {
     z-index: 1;
 }
 
+main {
+    /* Pad the main content to create space for the footer */
+    padding-bottom: 150px;
+}
+
 #hero h1 {
     text-shadow: 0 0 5px black;
     margin-top: 150px;
