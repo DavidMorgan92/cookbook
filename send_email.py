@@ -28,9 +28,8 @@ def send_message(name, email, message):
         s.login(user, password)
         s.send_message(msg)
         s.quit()
-    except Exception as ex:
+    except:
         # Return False if anything goes wrong
-        print(ex)
         return False
     
     # Return True if the message was sent
