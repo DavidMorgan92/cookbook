@@ -6,7 +6,9 @@
         "favourited",
         "favourites",
         "flask_pymongo",
+        "gunicorn",
         "scroller",
+        "templating",
         "unfavourite",
         "werkzeug",
         "wtforms"
