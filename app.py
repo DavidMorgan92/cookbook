@@ -76,6 +76,7 @@ app.add_url_rule("/account/change_password", "account_change_password",
 app.add_url_rule("/profile/<id>", "profile_index",
                  view_func=profile_views.index)
 
+# This code is only used for development. In production the app variable is imported and run by gunicorn. See the Procfile.
 if __name__ == "__main__":
     host = "0.0.0.0"
     port = int(os.environ.get("PORT"))
