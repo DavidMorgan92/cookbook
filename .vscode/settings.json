@@ -12,6 +12,7 @@
         "templating",
         "unfavourite",
         "werkzeug",
+        "WSGI",
         "wtforms"
     ],
     "files.autoSave": "off"
