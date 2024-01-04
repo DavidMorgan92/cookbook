@@ -156,16 +156,23 @@ All other links will depend on which page is being viewed.
 [Balsamiq Wireframes project file](documentation/wanderlust.bmpr)
 
 <details>
-<summary>Home page</summary>
+<summary>Home</summary>
 
-![Home page](documentation/images/wireframes/home.png)
+![Home](documentation/images/wireframes/home.png)
 
 </details>
 
 <details>
-<summary>Contact page</summary>
+<summary>Contact</summary>
 
-![Contact page](documentation/images/wireframes/contact.png)
+![Contact](documentation/images/wireframes/contact.png)
+
+</details>
+
+<details>
+<summary>Search</summary>
+
+![Search all recipes](documentation/images/wireframes/search.png)
 
 </details>
 
