@@ -1,4 +1,5 @@
 # Cook Book
+![Responsive](/documentation/images/responsive.jpg)
 
 ## Table of Contents
 
