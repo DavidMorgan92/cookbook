@@ -124,6 +124,29 @@ A recipe object in the database will be stored with an array of comments. Functi
 
 ### Structure
 
+The structure plane is concerned with the organization of your functionality and your content and how to navigate an intuitive way through your content and your features.
+
+This website will utilize a non-linear, hyperlinked structure.
+
+The navbar which is common to all pages will include links to:
+
+- Authenticated users:
+  - The home page
+  - Favourite recipes
+  - My recipes
+  - My account
+  - Log out
+- Anonymous users:
+  - The home page
+  - Log in
+  - Register
+
+The footer which is common to all pages will include a links to:
+
+- The contact page
+
+All other links will depend on which page is being viewed.
+
 [↑ Back to top](#cook-book)
 
 ### Skeleton
