@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "Balsamiq",
         "bson",
         "endmacro",
         "favourite",
@@ -12,6 +13,7 @@
         "templating",
         "unfavourite",
         "werkzeug",
+        "Wireframes",
         "WSGI",
         "wtforms"
     ],

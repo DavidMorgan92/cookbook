@@ -1,4 +1,5 @@
 # Cook Book
+
 ![Responsive](/documentation/images/responsive.jpg)
 
 ## Table of Contents
@@ -151,6 +152,17 @@ All other links will depend on which page is being viewed.
 [↑ Back to top](#cook-book)
 
 ### Skeleton
+
+[Balsamiq Wireframes project file](documentation/wanderlust.bmpr)
+
+<details>
+<summary>Home page</summary>
+
+![Home page](documentation/images/wireframes/home.png)
+
+</details>
+
+<br>
 
 [↑ Back to top](#cook-book)
 
