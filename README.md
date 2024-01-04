@@ -162,6 +162,13 @@ All other links will depend on which page is being viewed.
 
 </details>
 
+<details>
+<summary>Contact page</summary>
+
+![Contact page](documentation/images/wireframes/contact.png)
+
+</details>
+
 <br>
 
 [↑ Back to top](#cook-book)
