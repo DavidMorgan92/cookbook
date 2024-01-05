@@ -191,6 +191,13 @@ All other links will depend on which page is being viewed.
 </details>
 
 <details>
+<summary>Account</summary>
+
+![Account](documentation/images/wireframes/account.png)
+
+</details>
+
+<details>
 <summary>Content Attribution Modal</summary>
 
 ![Content Attribution Modal](documentation/images/wireframes/content-attribution-modal.png)
