@@ -183,6 +183,13 @@ All other links will depend on which page is being viewed.
 
 </details>
 
+<details>
+<summary>Register</summary>
+
+![Register](documentation/images/wireframes/register.png)
+
+</details>
+
 <br>
 
 [↑ Back to top](#cook-book)
