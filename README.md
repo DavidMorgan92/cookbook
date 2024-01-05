@@ -198,6 +198,13 @@ All other links will depend on which page is being viewed.
 </details>
 
 <details>
+<summary>Change Password</summary>
+
+![Change Password](documentation/images/wireframes/change-password.png)
+
+</details>
+
+<details>
 <summary>Content Attribution Modal</summary>
 
 ![Content Attribution Modal](documentation/images/wireframes/content-attribution-modal.png)
