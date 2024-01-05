@@ -226,6 +226,13 @@ All other links will depend on which page is being viewed.
 </details>
 
 <details>
+<summary>Edit Recipe (Change Image)</summary>
+
+![Edit Recipe (Change Image)](documentation/images/wireframes/edit-change-image.png)
+
+</details>
+
+<details>
 <summary>Delete Recipe</summary>
 
 ![Delete Recipe](documentation/images/wireframes/delete.png)
