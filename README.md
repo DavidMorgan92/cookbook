@@ -219,9 +219,16 @@ All other links will depend on which page is being viewed.
 </details>
 
 <details>
-<summary>Delete</summary>
+<summary>Edit Recipe</summary>
 
-![Delete](documentation/images/wireframes/delete.png)
+![Edit Recipe](documentation/images/wireframes/edit.png)
+
+</details>
+
+<details>
+<summary>Delete Recipe</summary>
+
+![Delete Recipe](documentation/images/wireframes/delete.png)
 
 </details>
 
