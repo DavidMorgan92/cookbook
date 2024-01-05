@@ -1,5 +1,5 @@
 import os
-from flask import render_template, Flask
+from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 import mongo
 import routes.home.views as home_views
