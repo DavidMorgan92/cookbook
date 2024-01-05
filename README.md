@@ -172,7 +172,14 @@ All other links will depend on which page is being viewed.
 <details>
 <summary>Search</summary>
 
-![Search all recipes](documentation/images/wireframes/search.png)
+![Search](documentation/images/wireframes/search.png)
+
+</details>
+
+<details>
+<summary>Login</summary>
+
+![Login](documentation/images/wireframes/login.png)
 
 </details>
 
