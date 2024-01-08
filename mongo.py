@@ -61,7 +61,8 @@ def insert_user(username, password):
 
     user = {
         "name": username,
-        "password_hash": generate_password_hash(password)
+        "password_hash": generate_password_hash(password),
+        "favourites": []
     }
 
     return mongo.db.users.insert_one(user)
