@@ -219,6 +219,13 @@ All other links will depend on which page is being viewed.
 </details>
 
 <details>
+<summary>Recipe Details</summary>
+
+![Recipe Details](documentation/images/wireframes/details.png)
+
+</details>
+
+<details>
 <summary>Edit Recipe</summary>
 
 ![Edit Recipe](documentation/images/wireframes/edit.png)
