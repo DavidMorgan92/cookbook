@@ -266,6 +266,10 @@ All other links will depend on which page is being viewed.
 
 ### Surface
 
+To provide a simple visual language the website is designed with common features of other websites, such as a navbar at the top that collapses to a burger icon on smaller screens, and a footer with auxiliary links.
+
+Lighthouse will be used to validate the usability of the website in terms of accessibility.
+
 [↑ Back to top](#cook-book)
 
 ## Technologies Used
@@ -301,6 +305,8 @@ All other links will depend on which page is being viewed.
 [↑ Back to top](#cook-book)
 
 ## Testing
+
+See the testing document [here](TESTING.md)
 
 [↑ Back to top](#cook-book)
 
