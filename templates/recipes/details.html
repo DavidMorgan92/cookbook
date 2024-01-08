@@ -60,20 +60,20 @@
 
     <div class="col s12">
         <!-- Description -->
-        <p>{{ recipe.description }}</p>
+        <p class="recipe-description">{{ recipe.description }}</p>
     </div>
 
     <div class="col s12">
         <!-- How long the recipe takes -->
-        <p>Takes around {{ recipe.time_minutes }} minutes</p>
+        <p class="recipe-duration">Takes around {{ recipe.time_minutes }} minutes</p>
     </div>
 
     <div class="col s12 m3">
         <!-- How many the recipe serves-->
-        <p>Serves {{ recipe_serves.render(recipe) }}</p>
+        <p class="recipe-serves">Serves {{ recipe_serves.render(recipe) }}</p>
 
         <!-- Ingredients -->
-        <ul>
+        <ul class="recipe-ingredients">
             {% for ingredient in recipe.ingredients %}
             <li>{{ ingredient }}</li>
             {% endfor %}
@@ -82,7 +82,7 @@
 
     <div class="col s12 m9">
         <!-- Steps -->
-        <ol>
+        <ol class="recipe-steps">
             {% for step in recipe.steps %}
             <li>{{ step }}</li>
             {% endfor %}
