@@ -27,7 +27,7 @@ def register():
             flash(f"Welcome {form.username.data}")
 
             # Redirect to home page
-            return redirect(url_for("home"))
+            return redirect(url_for("home_index"))
 
     # Render the register template
     return render_template("user/register.html", form=form)
