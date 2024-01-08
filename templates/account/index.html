@@ -4,12 +4,20 @@
 
 <h3 class="center">Welcome {{ logged_in_user_name() }}</h3>
 
-<a href="{{ url_for('profile_index', id=logged_in_user_id()) }}" class="btn">
-    View your public profile
-</a>
+<div class="row center">
+    <div class="col s12">
+        <a href="{{ url_for('profile_index', id=logged_in_user_id()) }}" class="btn">
+            View your public profile
+        </a>
+    </div>
+</div>
 
-<a href="{{ url_for('account_change_password') }}" class="btn">
-    Change your password
-</a>
+<div class="row center">
+    <div class="col s12">
+        <a href="{{ url_for('account_change_password') }}" class="btn">
+            Change your password
+        </a>
+    </div>
+</div>
 
 {% endblock %}
