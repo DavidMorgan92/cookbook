@@ -1,5 +1,22 @@
 # Testing
 
+## Table of Contents
+
+- [Layout](#layout)
+- [Home](#home)
+- [Contact](#contact)
+- [Search](#search)
+- [Login](#login)
+- [Register](#register)
+- [Account](#account)
+- [Change Password](#change-password)
+- [Profile](#profile)
+- [Recipes](#recipes)
+- [Recipe Details](#recipe-details)
+- [Edit Recipe](#edit-recipe)
+- [Delete Recipe](#delete-recipe)
+- [Favourites](#favourites)
+
 ## Layout
 
 ### Home link works
@@ -20,6 +37,8 @@
 
 ### Log out link works
 
+[↑ Back to top](#testing)
+
 ## Home
 
 [Lighthouse Report](documentation/lighthouse-reports/home.pdf)
@@ -28,15 +47,21 @@
 
 ### Popular recipes are in order of most likes
 
+[↑ Back to top](#testing)
+
 ## Contact
 
 [Lighthouse Report](documentation/lighthouse-reports/contact.pdf)
 
 ### Message is sent by email
 
+[↑ Back to top](#testing)
+
 ## Search
 
 [Lighthouse Report](documentation/lighthouse-reports/search.pdf)
+
+[↑ Back to top](#testing)
 
 ## Login
 
@@ -48,6 +73,8 @@
 
 ### Login fails if password is incorrect
 
+[↑ Back to top](#testing)
+
 ## Register
 
 [Lighthouse Report](documentation/lighthouse-reports/register.pdf)
@@ -55,6 +82,8 @@
 ### Registration succeeds if username is not taken
 
 ### Registration fails if username is taken
+
+[↑ Back to top](#testing)
 
 ## Account
 
@@ -64,6 +93,8 @@
 
 ### Change password link works
 
+[↑ Back to top](#testing)
+
 ## Change Password
 
 [Lighthouse Report](documentation/lighthouse-reports/change-password.pdf)
@@ -71,6 +102,8 @@
 ### Change password fails if old password is incorrect
 
 ### Change password succeeds if old password is correct
+
+[↑ Back to top](#testing)
 
 ## Profile
 
@@ -81,6 +114,8 @@
 ### Details links work
 
 ### Profile link works
+
+[↑ Back to top](#testing)
 
 ## Recipes
 
@@ -96,6 +131,8 @@
 
 ### Delete link works
 
+[↑ Back to top](#testing)
+
 ## Recipe Details
 
 [Lighthouse Report](documentation/lighthouse-reports/details.pdf)
@@ -109,6 +146,8 @@
 ### Unlike button works
 
 ### Comment works
+
+[↑ Back to top](#testing)
 
 ## Edit Recipe
 
@@ -126,14 +165,20 @@
 
 ### Doesn't allow serves to to be less than serves from
 
+[↑ Back to top](#testing)
+
 ## Delete Recipe
 
 [Lighthouse Report](documentation/lighthouse-reports/delete.pdf)
 
 ### Delete button works
 
+[↑ Back to top](#testing)
+
 ## Favourites
 
 [Lighthouse Report](documentation/lighthouse-reports/favourites.pdf)
 
 ### Shows user's favourites
+
+[↑ Back to top](#testing)
