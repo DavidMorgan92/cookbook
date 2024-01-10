@@ -213,6 +213,8 @@
 
 ### Message is sent by email
 
+This was working when set up with a Gmail account. Unfortunately the account was blocked for violating Gmail's policies. I was able to set up a Postmark account using my work email which works, but the content of the email is blocked by the company policy.
+
 [↑ Back to top](#testing)
 
 ## Search
