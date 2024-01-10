@@ -275,6 +275,8 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 </details>
 
+<br>
+
 [↑ Back to top](#testing)
 
 ## Register
@@ -312,6 +314,8 @@ This was working when set up with a Gmail account. Unfortunately the account was
 ![After](documentation/images/tests/register/registration-fails-if-username-is-taken/after.jpg)
 
 </details>
+
+<br>
 
 [↑ Back to top](#testing)
 
@@ -351,6 +355,8 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 </details>
 
+<br>
+
 [↑ Back to top](#testing)
 
 ## Change Password
@@ -359,7 +365,37 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 ### Change password fails if old password is incorrect
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/change-password/change-password-fails-if-old-password-is-incorrect/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/change-password/change-password-fails-if-old-password-is-incorrect/after.jpg)
+
+</details>
+
 ### Change password succeeds if old password is correct
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/change-password/change-password-succeeds-if-old-password-is-correct/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/change-password/change-password-succeeds-if-old-password-is-correct/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
