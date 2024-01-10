@@ -21,21 +21,149 @@
 
 ### Home link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/home-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/home-link-works/after.jpg)
+
+</details>
+
 ### Log In link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/login-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/login-link-works/after.jpg)
+
+</details>
 
 ### Register link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/register-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/register-link-works/after.jpg)
+
+</details>
+
 ### Contact link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/contact-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/contact-link-works/after.jpg)
+
+</details>
 
 ### Content attribution link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/content-attribution-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/content-attribution-link-works/after.jpg)
+
+</details>
+
 ### Favourite recipes link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/favourite-recipes-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/favourite-recipes-link-works/after.jpg)
+
+</details>
 
 ### My recipes link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/my-recipes-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/my-recipes-link-works/after.jpg)
+
+</details>
+
 ### My account link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/my-recipes-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/my-recipes-link-works/after.jpg)
+
+</details>
+
 ### Log out link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/layout/log-out-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/layout/log-out-link-works/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
