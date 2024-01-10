@@ -283,7 +283,35 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 ### Registration succeeds if username is not taken
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/register/registration-succeeds-if-username-is-not-taken/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/register/registration-succeeds-if-username-is-not-taken/after.jpg)
+
+</details>
+
 ### Registration fails if username is taken
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/register/registration-fails-if-username-is-taken/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/register/registration-fails-if-username-is-taken/after.jpg)
+
+</details>
 
 [↑ Back to top](#testing)
 
