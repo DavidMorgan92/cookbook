@@ -173,7 +173,37 @@
 
 ### Search function works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/home/search-function-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/home/search-function-works/after.jpg)
+
+</details>
+
 ### Popular recipes are in order of most likes
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/home/popular-recipes-are-in-order-of-most-likes/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/home/popular-recipes-are-in-order-of-most-likes/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
