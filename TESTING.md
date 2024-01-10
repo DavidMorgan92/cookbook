@@ -229,9 +229,51 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 ### Login works if username and password are correct
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/login/login-works-if-username-and-password-are-correct/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/login/login-works-if-username-and-password-are-correct/after.jpg)
+
+</details>
+
 ### Login fails if username is incorrect
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/login/login-fails-if-username-is-incorrect/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/login/login-fails-if-username-is-incorrect/after.jpg)
+
+</details>
+
 ### Login fails if password is incorrect
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/login/login-fails-if-password-is-incorrect/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/login/login-fails-if-password-is-incorrect/after.jpg)
+
+</details>
 
 [↑ Back to top](#testing)
 
