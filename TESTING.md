@@ -321,7 +321,35 @@ This was working when set up with a Gmail account. Unfortunately the account was
 
 ### View public profile link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/account/view-public-profile-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/account/view-public-profile-link-works/after.jpg)
+
+</details>
+
 ### Change password link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/account/change-password-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/account/change-password-link-works/after.jpg)
+
+</details>
 
 [↑ Back to top](#testing)
 
