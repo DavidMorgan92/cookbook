@@ -625,15 +625,85 @@ As long as the email environment variables are set to a correct account and host
 
 ### Change image works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/edit-recipe/change-image-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/edit-recipe/change-image-works/after.jpg)
+
+</details>
+
 ### Remove image works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/edit-recipe/remove-image-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/edit-recipe/remove-image-works/after.jpg)
+
+</details>
 
 ### Doesn't allow zero ingredients
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/edit-recipe/doesnt-allow-zero-ingredients/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/edit-recipe/doesnt-allow-zero-ingredients/after.jpg)
+
+</details>
+
 ### Doesn't allow zero steps
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/edit-recipe/doesnt-allow-zero-steps/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/edit-recipe/doesnt-allow-zero-steps/after.jpg)
+
+</details>
 
 ### Doesn't allow serves from to be greater than serves to
 
-### Doesn't allow serves to to be less than serves from
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/edit-recipe/doesnt-allow-serves-from-to-be-greater-than-serves-to/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/edit-recipe/doesnt-allow-serves-from-to-be-greater-than-serves-to/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
