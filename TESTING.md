@@ -407,9 +407,46 @@ As long as the email environment variables are set to a correct account and host
 
 ### Shows profile's user's recipes
 
+<details>
+<summary>Evidence</summary>
+
+![Evidence](documentation/images/tests/profile/shows-profiles-users-recipes/evidence.jpg)
+
+</details>
+
 ### Details links work
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/profile/details-links-work/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/profile/details-links-work/after.jpg)
+
+</details>
+
 ### Profile link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/profile/profile-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/profile/profile-link-works/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
