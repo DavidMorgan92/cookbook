@@ -737,4 +737,13 @@ As long as the email environment variables are set to a correct account and host
 
 ### Shows user's favourites
 
+<details>
+<summary>Evidence</summary>
+
+![Evidence](documentation/images/tests/favourites/shows-users-favourites/evidence.jpg)
+
+</details>
+
+<br>
+
 [↑ Back to top](#testing)
