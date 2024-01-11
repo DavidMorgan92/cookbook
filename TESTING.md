@@ -713,6 +713,22 @@ As long as the email environment variables are set to a correct account and host
 
 ### Delete button works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/delete-recipe/delete-button-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/delete-recipe/delete-button-works/after.jpg)
+
+</details>
+
+<br>
+
 [↑ Back to top](#testing)
 
 ## Favourites
