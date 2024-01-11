@@ -456,13 +456,78 @@ As long as the email environment variables are set to a correct account and host
 
 ### Shows user's recipes
 
+<details>
+<summary>Evidence</summary>
+
+![Evidence](documentation/images/tests/recipes/shows-users-recipes/evidence.jpg)
+
+</details>
+
 ### Create link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipes/create-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipes/create-link-works/after.jpg)
+
+</details>
 
 ### Details link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipes/details-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipes/details-link-works/after.jpg)
+
+</details>
+
 ### Edit link works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipes/edit-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipes/edit-link-works/after.jpg)
+
+</details>
+
 ### Delete link works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipes/delete-link-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipes/delete-link-works/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
