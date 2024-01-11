@@ -537,13 +537,85 @@ As long as the email environment variables are set to a correct account and host
 
 ### Favourite button works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipe-details/favourite-button-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipe-details/favourite-button-works/after.jpg)
+
+</details>
+
 ### Unfavourite button works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipe-details/unfavourite-button-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipe-details/unfavourite-button-works/after.jpg)
+
+</details>
 
 ### Like button works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipe-details/like-button-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipe-details/like-button-works/after.jpg)
+
+</details>
+
 ### Unlike button works
 
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipe-details/unlike-button-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipe-details/unlike-button-works/after.jpg)
+
+</details>
+
 ### Comment works
+
+<details>
+<summary>Before</summary>
+
+![Before](documentation/images/tests/recipe-details/comment-works/before.jpg)
+
+</details>
+
+<details>
+<summary>After</summary>
+
+![After](documentation/images/tests/recipe-details/comment-works/after.jpg)
+
+</details>
+
+<br>
 
 [↑ Back to top](#testing)
 
