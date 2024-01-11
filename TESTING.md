@@ -213,7 +213,9 @@
 
 ### Message is sent by email
 
-This was working when set up with a Gmail account. Unfortunately the account was blocked for violating Gmail's policies. I was able to set up a Postmark account using my work email which works, but the content of the email is blocked by the company policy.
+This was working when set up with a Gmail account. Unfortunately the account was blocked for violating Gmail's policies. I was able to set up a Postmark account using my work email which works, but the content of the email is blocked by the company policy. Therefore I've not been able to test this again.
+
+As long as the email environment variables are set to a correct account and host then it should work.
 
 [↑ Back to top](#testing)
 
